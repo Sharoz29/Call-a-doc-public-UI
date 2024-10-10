@@ -1,0 +1,143 @@
+
+
+.testimonialsSection {
+ 
+  background-color: white;
+    position: relative;
+  
+ 
+    .headerContainer {
+      display: flex;
+      padding-left: 33px;
+      background-color: white;
+      align-items: center;
+      
+      .mainImage {
+        flex: 0.3;
+        margin-right: 20px;
+        
+        img {
+          width: 500px;
+          height: auto;
+          object-fit: cover;
+        }
+      }
+  
+      .textContainer {
+        flex: 0.7;
+        text-align: left;
+  
+        .subheading {
+          font-size: 24px;
+          color: #0073e6;
+          margin-bottom: 10px;
+        }
+  
+        .heading {
+          font-size: 36px;
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  
+
+    .testimonialsSlider {
+      overflow: hidden;
+      width: 100%;
+      margin: 0 auto;
+    }
+  
+    .testimonialsContainer {
+      display: flex;
+      transition: transform 0.4s ease-in-out;
+      padding-left: 71px;
+      gap: 12px;
+      width: 126.666667%;
+    }
+  
+    .testimonialCard {
+      min-width: calc(100% / 3); 
+      padding: 20px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+      box-sizing: border-box;
+
+  
+      .imageContainer {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 20px;
+  
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+  
+      h4 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+  
+      .rating {
+        color: #ffbf00;
+        font-size: 18px;
+        margin-bottom: 15px;
+      }
+  
+      p {
+        font-size: 14px;
+        color: #6a6a6a;
+        line-height: 1.6;
+      }
+    }
+  
+ 
+    .controls {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      padding: 12px;
+  
+      .controlButton {
+        background-color: #00bfa5;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 50%;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin: 0 10px;
+  
+        &:hover {
+          background-color: #00897b;
+        }
+  
+        i {
+          font-size: 20px;
+        }
+      }
+    }
+  
+    @media (max-width: 1024px) {
+      .headerContainer {
+        flex-direction: column;
+  
+        .mainImage {
+          margin-bottom: 20px;
+        }
+      }
+  
+      .testimonialCard {
+        min-width: 100%;
+      }
+    }
+  }
+  

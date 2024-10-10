@@ -1,0 +1,145 @@
+.aboutSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    gap: 40px;
+  
+    .imageContainer {
+      position: relative;
+      width: 50%;
+      background: linear-gradient(135deg, rgba(209, 244, 255, 0.7), rgba(216, 227, 251, 0.7)); 
+      border-radius: 30px;
+      padding: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+  
+      .mainImage {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+  
+      .checkupTag {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        color: #00bfa5;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+  
+      .badge {
+        position: absolute;
+        bottom: -20px;
+        left: 20px;
+        background-color: #00bfa5;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        font-size: 14px;
+        strong {
+          font-size: 18px;
+        }
+      }
+    }
+  
+    .textContainer {
+      width: 50%;
+  
+      h2 {
+        font-size: 20px;
+        color: #00bfa5;
+        margin-bottom: 10px;
+      }
+  
+      h3 {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+  
+      p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        color: #6a6a6a;
+      }
+  
+      h4 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+  
+      .learnMoreButton {
+        display: inline-block;
+        background-color: #00bfa5;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        font-size: 16px;
+  
+        &:hover {
+          background-color: #00897b;
+        }
+      }
+    }
+  
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      text-align: center;
+  
+      .imageContainer,
+      .textContainer {
+        width: 100%;
+      }
+  
+      .imageContainer {
+        margin-bottom: 30px;
+      }
+  
+      .badge {
+        bottom: -10px;
+      }
+    }
+  
+    @media (max-width: 768px) {
+      padding: 20px;
+      .textContainer {
+        h3 {
+          font-size: 28px;
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+  
+    @media (max-width: 480px) {
+      padding: 15px;
+      .textContainer {
+        h3 {
+          font-size: 24px;
+        }
+        p {
+          font-size: 12px;
+        }
+  
+        .learnMoreButton {
+          padding: 10px 20px;
+          font-size: 14px;
+        }
+      }
+    }
+  }

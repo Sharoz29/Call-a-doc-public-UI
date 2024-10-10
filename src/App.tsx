@@ -5,6 +5,8 @@ import Services from "./routes/services/Services";
 import AboutUs from "./routes/about-us/AboutUs";
 import Blogs from "./routes/blogs/Blogs";
 import ContactUs from "./routes/contact-us/ContactUs";
+import '@fortawesome/fontawesome-svg-core/styles.css' 
+import '@fontsource/poppins';
 
 function App() {
   return (

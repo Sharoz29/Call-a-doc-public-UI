@@ -1,0 +1,188 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .header {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #00b3ff, #8b63ff);
+    padding: 10px;
+    color: white;
+    font-size: 14px;
+  
+    .topbarLeft {
+      display: flex;
+      gap: 20px;
+  
+      span {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+    }
+  
+    .topbarRight {
+      a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 5px 10px;
+        border-radius: 20px;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+  
+        i {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+  
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+    .logo a {
+      font-size: 24px;
+      font-weight: bold;
+      color: #00b3ff;
+      text-decoration: none;
+    }
+  
+    .links {
+      display: flex;
+      a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        font-size: 16px;
+  
+        &:hover {
+          color: #00b3ff;
+        }
+      }
+    }
+    .activeLink {
+        color: #00b3ff;
+        font-weight: bold;
+        border-bottom: 2px solid #00b3ff; 
+      }
+  
+    .contact {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+  
+      a {
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+  
+        i {
+          margin-right: 5px;
+        }
+  
+        &:hover {
+          color: #00b3ff;
+        }
+  
+        &.appointmentBtn {
+          background-color: #00c853;
+          color: white;
+          padding: 10px 20px;
+          border-radius: 20px;
+          font-weight: bold;
+          transition: background-color 0.3s;
+  
+          &:hover {
+            background-color: #00a94f;
+          }
+        }
+      }
+    }
+  }
+  
+
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      text-align: center;
+      gap: 15px;
+  
+      .links {
+        flex-direction: column;
+  
+        a {
+          margin: 5px 0;
+        }
+      }
+  
+      .contact {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  
+    .topbar {
+      flex-direction: column;
+      align-items: center;
+  
+      .topbarLeft {
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+  
+      .topbarRight {
+        margin-bottom: 10px;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .navbar {
+      padding: 10px;
+  
+      .logo a {
+        font-size: 20px;
+      }
+  
+      .links a {
+        font-size: 14px;
+      }
+  
+      .contact a {
+        font-size: 14px;
+      }
+    }
+  
+    .topbar {
+      font-size: 12px;
+      padding: 5px;
+    }
+  }
+  
