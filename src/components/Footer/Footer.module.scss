@@ -1,0 +1,146 @@
+
+
+.footer {
+    padding: 40px 20px;
+    background: linear-gradient(90deg, #E2F6FF, #D8E3FB);
+    display: flex;
+    justify-content: center;
+  
+    .footerContent {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      max-width: 1200px;
+      width: 100%;
+    }
+  
+    h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+  
+    p {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #666;
+    }
+  
+    a {
+      text-decoration: none;
+      color: #0073e6;
+      transition: color 0.3s ease;
+  
+      &:hover {
+        color: #005bb5;
+      }
+    }
+  
+ 
+    .company {
+      flex: 1;
+  
+      ul {
+        list-style: none;
+        padding: 0;
+  
+        li {
+          margin-bottom: 10px;
+  
+          a {
+            font-size: 14px;
+            color: #0073e6;
+  
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  
+
+    .address {
+      flex: 1;
+      p {
+        margin-bottom: 5px;
+      }
+  
+      h4 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+    }
+  
+
+    .newsletter {
+      flex: 1;
+  
+      .newsletterInput {
+        display: flex;
+        align-items: center;
+  
+        input {
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 30px;
+          width: 70%;
+          margin-right: 10px;
+        }
+  
+        button {
+          background-color: #0073e6;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+  
+          i {
+            font-size: 16px;
+          }
+  
+          &:hover {
+            background-color: #005bb5;
+          }
+        }
+      }
+    }
+  
+
+    .social {
+      flex: 1;
+  
+      .socialIcons {
+        display: flex;
+        gap: 10px;
+  
+        a {
+          font-size: 18px;
+          color: #0073e6;
+          transition: color 0.3s ease;
+  
+          &:hover {
+            color: #005bb5;
+          }
+        }
+      }
+    }
+  
+
+    @media (max-width: 768px) {
+      .footerContent {
+        flex-direction: column;
+        align-items: flex-start;
+  
+        .company, .address, .newsletter, .social {
+          margin-bottom: 20px;
+          width: 100%;
+        }
+      }
+    }
+  }
+  

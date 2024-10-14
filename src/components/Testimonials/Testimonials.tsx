@@ -1,0 +1,114 @@
+
+import styles from './Testimonials.module.scss';
+import { useState } from 'react';
+import healthcareProfessional from '../../../src/assets/healthcareProfessional.png';
+
+const Testimonials = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const testimonials = [
+    {
+      name: 'Thomas Daniel',
+      image: '/images/thomas.jpg', 
+      review: 'The caregivers from Home Health Services have been absolutely wonderful. They\'ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
+      rating: 5,
+    },
+    {
+      name: 'Alena Alex',
+      image: '/images/alena.jpg',
+      review: 'The caregivers from Home Health Services have been absolutely wonderful. They\'ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
+      rating: 5,
+    },
+    {
+      name: 'Thomas Edison',
+      image: '/images/edison.jpg',
+      review: 'The caregivers from Home Health Services have been absolutely wonderful. They\'ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
+      rating: 5,
+    },
+    {
+      name: 'John Smith',
+      image: '/images/john.jpg',
+      review: 'Amazing care! They provided excellent support for my mother, allowing her to maintain her independence at home.',
+      rating: 5,
+    },
+    {
+      name: 'Mary Jones',
+      image: '/images/mary.jpg',
+      review: 'The service has been outstanding. The team provided customized care that helped my father regain his independence.',
+      rating: 5,
+    },
+  ];
+
+  const totalTestimonials = testimonials.length;
+
+
+  const visibleCards = 4;
+  const maxIndex = Math.ceil(totalTestimonials / visibleCards) - 1;
+
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === maxIndex ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? maxIndex : prevIndex - 1
+    );
+  };
+
+  return (
+    <section className={styles.testimonialsSection}>
+
+      <div className={styles.headerContainer}>
+        <div className={styles.mainImage}>
+          <img src={healthcareProfessional}alt="Healthcare Professional" /> {/* Replace with the actual image */}
+        </div>
+        <div className={styles.textContainer}>
+          <h3 className={styles.subheading}>Testimonials</h3>
+          <h2 className={styles.heading}>What Our Clients Say</h2>
+        </div>
+      </div>
+
+
+      <div style={{
+        background: 'linear-gradient(90deg, #E2F6FF, #D8E3FB)'
+
+      }}>
+
+      <div className={styles.testimonialsSlider}>
+        <div
+          className={styles.testimonialsContainer}
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+          {testimonials.map((testimonial, index) => (
+              <div className={styles.testimonialCard} key={index}>
+              <div className={styles.imageContainer}>
+                <img src={testimonial.image} alt={testimonial.name} />
+              </div>
+              <h4>{testimonial.name}</h4>
+              <div className={styles.rating}>
+                {'★'.repeat(testimonial.rating)}
+              </div>
+              <p>{testimonial.review}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+
+      <div className={styles.controls}>
+        <button onClick={prevSlide} className={styles.controlButton}>
+          <i className="fas fa-chevron-left"></i>
+        </button>
+        <button onClick={nextSlide} className={styles.controlButton}>
+          <i className="fas fa-chevron-right"></i>
+        </button>
+      </div>
+          </div>
+    </section>
+  );
+};
+
+export default Testimonials;

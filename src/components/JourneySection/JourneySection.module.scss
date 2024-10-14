@@ -1,0 +1,94 @@
+
+
+.journeySection {
+    width: 100%;
+    padding: 40px 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+
+    .peopleContainer {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+  
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  
+  
+    .contentContainer {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(90deg, #4FD1C5, #4A91F2);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      width: 100%;
+  
+      .textContainer {
+        flex: 1;
+        color: white;
+        padding-right: 20px;
+  
+        h2 {
+          font-size: 28px;
+          margin-bottom: 20px;
+        }
+  
+        .ctaButton {
+          background-color: white;
+          color: black;
+          border: none;
+          padding: 15px 25px;
+          border-radius: 30px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: #ddd;
+          }
+        }
+      }
+  
+      .imageContainer {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+  
+        img {
+          width: 100%;
+          max-width: 300px;
+          border-radius: 20px;
+        }
+      }
+    }
+  
+
+    @media (max-width: 768px) {
+      .contentContainer {
+        flex-direction: column;
+        text-align: center;
+  
+        .textContainer {
+          padding-right: 0;
+          margin-bottom: 20px;
+        }
+  
+        .imageContainer {
+          justify-content: center;
+  
+          img {
+            max-width: 250px;
+          }
+        }
+      }
+    }
+  }
+  
