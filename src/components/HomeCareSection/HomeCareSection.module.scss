@@ -1,11 +1,20 @@
 
+.homeCareMain{
+  display: flex;
+  justify-content: center;
+}
+
 .homeCareSection {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 50px;
-  background: linear-gradient(90deg, #e0f7fa, #b3e5fc);
-  border-radius: 30px;
+  width: 93%;
+  background: linear-gradient(180deg, white 0%,rgba(209, 244, 255, 1)
+  50%,rgba(215, 226, 250, 1)
+
+  100%);
+  border-radius: 60px;
   flex-wrap: wrap;
 
   .content {
@@ -16,7 +25,7 @@
       margin-bottom: 20px;
 
       span {
-        color: #00bfa5;
+        color: black;
       }
     }
 
@@ -40,7 +49,7 @@
 
       button {
         padding: 15px 30px;
-        background-color: #00bfa5;
+        background: linear-gradient(90deg, rgb(36, 126, 192), rgb(72, 213, 196));
         color: white;
         font-size: 16px;
         font-weight: bold;
@@ -65,11 +74,12 @@
 
     .imageWrapper {
       position: relative;
+      display: flex;
+      justify-content: center;
 
       .mainImage {
         border-radius: 30px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 100%;
+        width:76%;
         height: auto;
       }
 

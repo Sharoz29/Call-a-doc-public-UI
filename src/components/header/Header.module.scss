@@ -15,7 +15,7 @@
   .topbar {
     display: flex;
     justify-content: space-between;
-    background: linear-gradient(90deg, #00b3ff, #8b63ff);
+    background: linear-gradient(90deg, rgba(72, 213, 196, 1),  rgba(167, 207, 255, 1), rgba(36, 126, 192, 1));
     padding: 10px;
     color: white;
     font-size: 14px;
@@ -58,17 +58,19 @@
 
   .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-around;
     align-items: center;
     background-color: white;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
     .logo a {
       font-size: 24px;
-      font-weight: bold;
+      font-weight: bolder;
       color: #00b3ff;
-      text-decoration: none;
+      background: linear-gradient(to right, #5ce1e6, #8a9ce6, #3399cc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
   
     .links {
@@ -112,7 +114,7 @@
         }
   
         &.appointmentBtn {
-          background-color: #00c853;
+            background: linear-gradient(90deg, rgba(36, 126, 192, 1),rgba(72, 213, 196, 1));
           color: white;
           padding: 10px 20px;
           border-radius: 20px;

@@ -23,7 +23,9 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      {/* Topbar */}
+
+      <div>
+
       <div className={styles.topbar}>
         <div className={styles.topbarLeft}>
           <span>
@@ -38,6 +40,7 @@ const Header = () => {
             <FontAwesomeIcon icon={faWhatsapp} /> Connect on Whatsapp
           </a>
         </div>
+      </div>
       </div>
 
 
