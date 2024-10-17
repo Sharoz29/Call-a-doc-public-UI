@@ -60,7 +60,6 @@
       min-width: calc(100% / 3); 
       padding: 20px;
       background-color: white;
-      border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       text-align: left;
       box-sizing: border-box;
@@ -106,7 +105,7 @@
       padding: 12px;
   
       .controlButton {
-        background-color: #00bfa5;
+       background: linear-gradient(180deg, rgb(36, 126, 192), rgb(72, 213, 196));
         color: white;
         padding: 10px 20px;
         border-radius: 50%;

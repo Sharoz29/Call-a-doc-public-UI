@@ -6,6 +6,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = () => {
   return (
+    <>
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
         <div className={styles.company}>
@@ -58,6 +59,10 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+      <div className={styles.bottomFotter}>
+
+      </div>
+    </>
   );
 };
 

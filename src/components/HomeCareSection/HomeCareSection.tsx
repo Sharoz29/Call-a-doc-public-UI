@@ -1,9 +1,12 @@
 
 import styles from './HomeCareSection.module.scss';
+import HomeHealthCare from '../../../src/assets/HomeHealthCare.png';
 
 const HomeCareSection = () => {
   return (
-    <section className={styles.homeCareSection}>
+    <section className={styles.homeCareMain}>
+
+    <div className={styles.homeCareSection}>
       <div className={styles.content}>
         <h1>
           Compassionate <span>Home Health Care</span>
@@ -22,16 +25,15 @@ const HomeCareSection = () => {
       <div className={styles.visuals}>
         <div className={styles.imageWrapper}>
           <img
-            src="/images/nurse-patient.jpg"
+            src={HomeHealthCare}
             alt="Nurse helping elderly"
             className={styles.mainImage}
-          />
-          <div className={styles.tag}>
-            <p>24/7 Service</p>
-          </div>
+            />
+
         </div>
       </div>
-    </section>
+    </div>
+            </section>
   );
 };
 

@@ -2,6 +2,8 @@
 import styles from './Testimonials.module.scss';
 import { useState } from 'react';
 import healthcareProfessional from '../../../src/assets/healthcareProfessional.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'; 
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -100,10 +102,10 @@ const Testimonials = () => {
 
       <div className={styles.controls}>
         <button onClick={prevSlide} className={styles.controlButton}>
-          <i className="fas fa-chevron-left"></i>
+        <FontAwesomeIcon icon={faChevronLeft} />
         </button>
         <button onClick={nextSlide} className={styles.controlButton}>
-          <i className="fas fa-chevron-right"></i>
+        <FontAwesomeIcon icon={faChevronRight} />
         </button>
       </div>
           </div>
