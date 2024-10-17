@@ -4,6 +4,10 @@ import { useState } from 'react';
 import healthcareProfessional from '../../../src/assets/healthcareProfessional.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'; 
+import profilepic1 from '../../../src/assets/profilePic1.png'
+import profilepic2 from '../../../src/assets/profilePic2.jpeg'
+import profilepic3 from '../../../src/assets/profilePic3.jpeg'
+import profilepic4 from '../../../src/assets/profilePic4.jpeg'
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -11,31 +15,31 @@ const Testimonials = () => {
   const testimonials = [
     {
       name: 'Thomas Daniel',
-      image: '/images/thomas.jpg', 
+      image: profilepic1, 
       review: 'The caregivers from Home Health Services have been absolutely wonderful. They\'ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
       rating: 5,
     },
     {
       name: 'Alena Alex',
-      image: '/images/alena.jpg',
+      image: profilepic2,
       review: 'The caregivers from Home Health Services have been absolutely wonderful. They\'ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
       rating: 5,
     },
     {
       name: 'Thomas Edison',
-      image: '/images/edison.jpg',
+      image: profilepic3,
       review: 'The caregivers from Home Health Services have been absolutely wonderful. They\'ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
       rating: 5,
     },
     {
       name: 'John Smith',
-      image: '/images/john.jpg',
+      image: profilepic4,
       review: 'Amazing care! They provided excellent support for my mother, allowing her to maintain her independence at home.',
       rating: 5,
     },
     {
       name: 'Mary Jones',
-      image: '/images/mary.jpg',
+      image: profilepic3,
       review: 'The service has been outstanding. The team provided customized care that helped my father regain his independence.',
       rating: 5,
     },
