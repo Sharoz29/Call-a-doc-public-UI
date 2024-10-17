@@ -1,0 +1,43 @@
+
+
+.appointmentMain{
+display: flex;
+justify-content: center;
+padding-bottom: 24px;
+  }
+.appointmentSection{
+    display: flex;
+    justify-content: space-between;
+ 
+    padding: 50px;
+    width: 93%;
+    background: linear-gradient(180deg, white 0%,rgba(209, 244, 255, 1)
+    50%,rgba(215, 226, 250, 1)
+  
+    100%);
+    border-radius: 60px;
+    flex-wrap: wrap;
+}
+
+.visuals {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 45%;
+    position: relative;
+
+    .imageWrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+
+      .mainImage {
+        border-radius: 30px;
+        width:76%;
+        height: auto;
+      }
+
+
+    }
+  }
+

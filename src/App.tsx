@@ -10,6 +10,7 @@ import '@fontsource/poppins';
 import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton";
 import Header from "./components/header/Header";
 import Footer from "./components/Footer/Footer";
+import Appointment from "./components/Appointment/Appoinment";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/appointment" element={<Appointment/>}/>
       </Routes>
       <Footer/>
     </BrowserRouter>
