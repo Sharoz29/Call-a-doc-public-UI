@@ -49,28 +49,26 @@
     }
   
     .testimonialsContainer {
-      display: flex;
-      transition: transform 0.4s ease-in-out;
-      padding-left: 71px;
-      gap: 12px;
-      width: 126.666667%;
+    background: linear-gradient(90deg, #E2F6FF, #D8E3FB);
+      padding: 0px 0px 79px 31px;
     }
   
     .testimonialCard {
-      min-width: calc(100% / 3); 
       padding: 20px;
       background-color: white;
+      text-align: justify;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       text-align: left;
       box-sizing: border-box;
 
-  
       .imageContainer {
         width: 60px;
         height: 60px;
         border-radius: 50%;
+         margin: 0 auto;
         overflow: hidden;
         margin-bottom: 20px;
+        align-self: center;
   
         img {
           width: 100%;
@@ -82,12 +80,14 @@
       h4 {
         font-size: 20px;
         margin-bottom: 10px;
+        text-align: center;
       }
   
       .rating {
         color: #ffbf00;
         font-size: 18px;
         margin-bottom: 15px;
+        text-align: center;
       }
   
       p {
@@ -96,13 +96,14 @@
         line-height: 1.6;
       }
     }
-  
+
  
     .controls {
-      margin-top: 30px;
-      display: flex;
-      justify-content: center;
-      padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
   
       .controlButton {
        background: linear-gradient(180deg, rgb(36, 126, 192), rgb(72, 213, 196));
@@ -137,6 +138,28 @@
       .testimonialCard {
         min-width: 100%;
       }
+      .testimonialsContainer {
+
+          padding: 0px ;
+        }
     }
   }
-  
+.rightIcon{
+
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #4FD1C5, #4A91F2);
+  padding: 10px;
+  cursor: pointer;
+  z-index: 4;
+}
+.leftIcon{
+
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #4FD1C5, #4A91F2);
+  padding: 10px;
+  cursor: pointer;
+  z-index: 4;
+}
+
