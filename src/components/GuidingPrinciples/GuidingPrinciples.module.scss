@@ -72,10 +72,13 @@
       .doctorImages {
         flex-direction: column;
   
-        .leftDoctor,
-        .rightDoctor {
+        .leftDoctor
+       {
           width: 200px;
           margin-bottom: 20px;
+        }
+        .rightDoctor{
+          display: none;
         }
       }
   

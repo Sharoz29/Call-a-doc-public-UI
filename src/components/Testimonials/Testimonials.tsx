@@ -1,75 +1,102 @@
-
+import React from 'react';
 import styles from './Testimonials.module.scss';
-import { useState } from 'react';
+import Slider, { Settings } from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import healthcareProfessional from '../../../src/assets/healthcareProfessional.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'; 
-import profilepic1 from '../../../src/assets/profilePic1.png'
-import profilepic2 from '../../../src/assets/profilePic2.jpeg'
-import profilepic3 from '../../../src/assets/profilePic3.jpeg'
-import profilepic4 from '../../../src/assets/profilePic4.jpeg'
+import profilepic1 from '../../../src/assets/profilePic1.png';
+import profilepic2 from '../../../src/assets/profilePic2.jpeg';
+import profilepic3 from '../../../src/assets/profilePic3.jpeg';
+import profilepic4 from '../../../src/assets/profilePic4.jpeg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { useRef } from 'react';
 
-const Testimonials = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+type Testimonial = {
+  name: string;
+  image: string;
+  review: string;
+  rating: number;
+};
 
-  const testimonials = [
+interface ArrowProps {
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+}
+
+const Testimonials: React.FC = () => {
+  const sliderRef = useRef<Slider>(null);
+  const testimonials: Testimonial[] = [
     {
       name: 'Thomas Daniel',
-      image: profilepic1, 
-      review: 'The caregivers from Home Health Services have been absolutely wonderful. They\'ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
+      image: profilepic1,
+      review: "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
       rating: 5,
     },
     {
       name: 'Alena Alex',
       image: profilepic2,
-      review: 'The caregivers from Home Health Services have been absolutely wonderful. They\'ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
+      review: "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
       rating: 5,
     },
     {
       name: 'Thomas Edison',
       image: profilepic3,
-      review: 'The caregivers from Home Health Services have been absolutely wonderful. They\'ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
+      review: "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
       rating: 5,
     },
     {
       name: 'John Smith',
       image: profilepic4,
-      review: 'Amazing care! They provided excellent support for my mother, allowing her to maintain her independence at home.',
+      review: 'The caregivers from Home Health Services have been absolutely wonderful. They ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
       rating: 5,
     },
     {
       name: 'Mary Jones',
       image: profilepic3,
-      review: 'The service has been outstanding. The team provided customized care that helped my father regain his independence.',
+      review: 'The caregivers from Home Health Services have been absolutely wonderful. They ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
+      rating: 5,
+    },
+    {
+      name: 'John Smith',
+      image: profilepic4,
+      review: 'The caregivers from Home Health Services have been absolutely wonderful. They ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home..',
       rating: 5,
     },
   ];
 
-  const totalTestimonials = testimonials.length;
-
-
-  const visibleCards = 4;
-  const maxIndex = Math.ceil(totalTestimonials / visibleCards) - 1;
-
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === maxIndex ? 0 : prevIndex + 1
-    );
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? maxIndex : prevIndex - 1
-    );
+  const settings: Settings = {
+    arrows:false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
     <section className={styles.testimonialsSection}>
-
       <div className={styles.headerContainer}>
         <div className={styles.mainImage}>
-          <img src={healthcareProfessional}alt="Healthcare Professional" /> {/* Replace with the actual image */}
+          <img src={healthcareProfessional} alt="Healthcare Professional" />
         </div>
         <div className={styles.textContainer}>
           <h3 className={styles.subheading}>Testimonials</h3>
@@ -77,43 +104,62 @@ const Testimonials = () => {
         </div>
       </div>
 
-
-      <div style={{
-        background: 'linear-gradient(90deg, #E2F6FF, #D8E3FB)'
-
-      }}>
-
-      <div className={styles.testimonialsSlider}>
-        <div
-          className={styles.testimonialsContainer}
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
+      <div
+        className={styles.testimonialsContainer}
+      > 
+        <Slider  ref={sliderRef}  {...settings}>
           {testimonials.map((testimonial, index) => (
-              <div className={styles.testimonialCard} key={index}>
-              <div className={styles.imageContainer}>
-                <img src={testimonial.image} alt={testimonial.name} />
+            <div className={styles.testimonialCard} key={index}>
+              <div className={styles.imageContainer}   >
+                <img src={testimonial.image} alt={testimonial.name}  />
               </div>
-              <h4>{testimonial.name}</h4>
-              <div className={styles.rating}>
-                {'★'.repeat(testimonial.rating)}
+              <div>
+              <h4 >{testimonial.name}</h4>
+              <div className={styles.rating} >{'★'.repeat(testimonial.rating)}</div>
+              <p >{testimonial.review}</p>
+
               </div>
-              <p>{testimonial.review}</p>
             </div>
           ))}
-        </div>
-      </div>
-
-
-      <div className={styles.controls}>
-        <button onClick={prevSlide} className={styles.controlButton}>
-        <FontAwesomeIcon icon={faChevronLeft} />
-        </button>
-        <button onClick={nextSlide} className={styles.controlButton}>
-        <FontAwesomeIcon icon={faChevronRight} />
-        </button>
-      </div>
+        </Slider>
+      <div >
+        <div className={styles.controls}
+         >
+          <div>
+          <PrevArrow onClick={() => sliderRef.current?.slickPrev()} />
           </div>
+          <div>
+
+          <NextArrow onClick={() => sliderRef.current?.slickNext()} />
+          </div>
+        </div>
+  </div>
+      </div>
     </section>
+  );
+};
+
+const NextArrow: React.FC<ArrowProps> = ({  onClick }) => {
+  return (
+
+    <FontAwesomeIcon
+     className={styles.controlButton}
+      icon={faChevronRight}
+      onClick={onClick}
+       />
+ 
+  );
+};
+
+const PrevArrow: React.FC<ArrowProps> = ({  onClick }) => {
+  return (
+
+       <FontAwesomeIcon 
+        className={styles.controlButton} 
+        icon={faChevronLeft} 
+        onClick={onClick}
+        />
+
   );
 };
 
