@@ -10,8 +10,10 @@ import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton"
 import Header from "./components/header/Header";
 import Footer from "./components/Footer/Footer";
 import Appointment from "./components/Appointment/Appoinment";
+import { getToken } from "./auth/oauth.ts";
 
 function App() {
+  getToken();
   return (
     <BrowserRouter>
       <Header />
