@@ -72,6 +72,15 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    
+    }
   
     .links {
       display: flex;
@@ -130,26 +139,63 @@
   }
   
 
-  @media (max-width: 768px) {
+  @media (max-width: 884px) {
     .navbar {
-      flex-direction: column;
+      flex-direction: row;
       text-align: center;
       gap: 15px;
   
+    
       .links {
-        flex-direction: column;
+        display: none; 
   
-        a {
-          margin: 5px 0;
+        &.showMenu {
+        z-index: 999;
+        position: absolute;
+        right: 8%;
+        top: 15%;
+        background: linear-gradient(180deg, white 0%, rgb(209, 244, 255) 50%, rgb(215, 226, 250) 100%);
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          padding: 20px; 
+          border-radius: 10px; 
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease-in-out;
         }
       }
+      .logo {
+     display: flex;
+     gap: 10px;
+
+      }
+      .contact {
+       .phone{
+        display: none;
+       }
+      }
+      
+  
   
       .contact {
-        flex-direction: column;
-        gap: 10px;
+    a{
+    span{
+        display: none;
       }
     }
-  
+      }
+      .hamburger {
+        display: block;
+        background: linear-gradient(to right, #5ce1e6, #8a9ce6, #3399cc);
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+ 
+
+     
+      
+    }
+
     .topbar {
       flex-direction: column;
       align-items: center;
