@@ -1,6 +1,7 @@
 import styles from "./Header.module.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons"; 
 import {
   faMapMarkerAlt,
   faEnvelope,
@@ -9,9 +10,10 @@ import {
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false); 
+
   useEffect(() => {
     const navLinks = document.querySelectorAll(`.${styles.links} a`);
-
     const currentPath = window.location.pathname;
 
     navLinks.forEach((link) => {
@@ -20,6 +22,10 @@ const Header = () => {
       }
     });
   }, []);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen); 
+  };
 
   return (
     <header className={styles.header}>
@@ -44,21 +50,26 @@ const Header = () => {
       <nav className={styles.navbar}>
         <div className={styles.logo}>
           <a href="/">Call a Doctor</a>
+   
         </div>
-        <div className={styles.links}>
+        <div className={`${styles.links} ${menuOpen ? styles.showMenu : ''}`}>
           <a href="/">Home</a>
           <a href="/about-us">About</a>
           <a href="/services">Services</a>
-          <a href="/contact">Contact</a>
+          <a href="/contact-us">Contact</a>
         </div>
         <div className={styles.contact}>
-          <a href="tel:0000-000-000">
-            <FontAwesomeIcon icon={faPhone} /> 0000-000-000
+          <a className="phone"  href="tel:0000-000-000">
+            <FontAwesomeIcon icon={faPhone} /> <span> 0000-000-000  </span>
           </a>
+
           <a href="/appointment" className={styles.appointmentBtn}>
             Appointment
           </a>
         </div>
+        <button className={styles.hamburger} onClick={toggleMenu}>
+          <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} />
+        </button>
       </nav>
     </header>
   );
