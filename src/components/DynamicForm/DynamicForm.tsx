@@ -4,6 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { assignmentService } from "../../services/assignment.service";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 interface FieldConfig {
   value: string;
   label: string;
@@ -29,6 +30,7 @@ interface DynamicFormProps {
 
 const DynamicForm = ({ fields, caseUpdateId, etag }: DynamicFormProps) => {
   const [formData, setFormData] = useState<FormData>({});
+  const navigate = useNavigate();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -184,12 +186,14 @@ const DynamicForm = ({ fields, caseUpdateId, etag }: DynamicFormProps) => {
           res.data.confirmationNote || "Form submitted successfully!",
           {
             autoClose: 5000,
+            onClose: () => navigate("/"),
           }
         )
       )
       .catch((error) => {
         toast.error("Error submitting form. Please try again.", {
           autoClose: 5000,
+          onClose: () => navigate("/"),
         });
         console.error(error);
       });
