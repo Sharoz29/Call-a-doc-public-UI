@@ -35,7 +35,6 @@ const Appointment = () => {
     caseService
       .getCaseView("LCS-CallADoc-Work-AppointmentBooking")
       .then((res) => {
-        console.log(res);
         const fieldsData: Fields = res?.uiResources?.resources.fields;
         const caseUpdateId = res.data?.caseInfo?.assignments?.[0]?.ID;
         setCaseId(caseUpdateId);
