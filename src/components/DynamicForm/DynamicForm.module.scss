@@ -1,0 +1,78 @@
+.formContainer {
+
+
+  .form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 70%;
+    padding: 15px 0px 0px 1px;
+
+
+    
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 20px;
+
+    @media (min-width: 922px) { 
+      width: 80%;
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    @media (max-width: 859px) { 
+      width: 100%;
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.2s ease-in-out;
+
+    &:focus {
+      border-color: #0096e5;
+    }
+  }
+
+  .formActions {
+
+  
+    button {
+      background: linear-gradient(90deg, rgb(36, 126, 192), rgb(72, 213, 196));
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 50px; // Rounded edges
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+  
+      &:hover {
+        background: linear-gradient(90deg,  rgb(72, 213, 196) 0%, rgb(36, 126, 192) 100%); 
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+  
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(0, 150, 229, 0.3); 
+      }
+    }
+  }
+}

@@ -5,8 +5,28 @@ import { useEffect, useState } from "react";
 import DynamicForm from "../DynamicForm/DynamicForm";
 import { caseService } from "../../services/case.service";
 
+
+interface FieldConfig {
+  displayAs: string;
+  label: string;
+  datasource?: { records: { key: string; value: string }[] };
+}
+
+interface Fields {
+  [key: string]: FieldConfig[];
+}
+
+interface MappedField {
+  type: "TextInput" | "Dropdown";
+  config: {
+    label: string;
+    value: string;
+    datasource?: { records: { key: string; value: string }[] };
+  };
+}
+
 const Appointment = () => {
-  const [fields, setfields] = useState();
+  const [fields, setfields] = useState<Fields | undefined>(undefined);
 
   const token = sessionStorage.getItem("token");
 
@@ -14,26 +34,24 @@ const Appointment = () => {
     caseService
       .getCaseView("LCS-CallADoc-Work-AppointmentBooking")
       .then((res) => {
-        const fieldsData = res?.uiResources?.resources.fields;
+        const fieldsData: Fields = res?.uiResources?.resources.fields;
         setfields(fieldsData);
       });
   }, [token]);
 
-  const filteredFields =
+  const filteredFields: Fields | undefined =
     fields &&
-    Object.keys(fields!)
+    Object.keys(fields)
       .filter((key) => !key.startsWith("px") && !key.startsWith("py"))
-      .reduce((obj, key) => {
+      .reduce((obj: Fields, key: string) => {
         obj[key] = fields![key];
         return obj;
       }, {});
 
-  //https://web.pega23.lowcodesol.co.uk/prweb/app/call-a-doctor/api/application/v2/assignments/ASSIGN-WORKLIST%20LCS-CALLADOC-WORK%20A-29002!CREATEFORM_DEFAULT/actions/Create?viewType=page
-  const mappedFields =
-    fields &&
+  const mappedFields: MappedField[] | undefined =
     filteredFields &&
-    Object.keys(filteredFields!).map((key) => {
-      const fieldConfig = fields![key][0];
+    Object.keys(filteredFields).map((key) => {
+      const fieldConfig = filteredFields[key][0];
       return {
         type:
           fieldConfig.displayAs === "pxTextInput"
@@ -44,25 +62,23 @@ const Appointment = () => {
         config: {
           label: `@L ${fieldConfig.label}`,
           value: `@P .${key}`,
-          ...(fieldConfig?.datasource && {
-            datasource: fieldConfig?.datasource,
+          ...(fieldConfig.datasource && {
+            datasource: fieldConfig.datasource,
           }),
         },
       };
     });
-
-  console.log(mappedFields);
 
   return (
     <section className={styles.appointmentMain}>
       <div className={styles.appointmentSection}>
         <div className={styles.content}>
           <h3>Book an Appointment</h3>
-        </div>
-        <div className="">
-          {mappedFields && mappedFields.length > 0 && (
-            <DynamicForm fields={mappedFields} />
-          )}
+          <div className="">
+            {mappedFields && mappedFields.length > 0 && (
+              <DynamicForm fields={mappedFields} />
+            )}
+          </div>
         </div>
         <div className={styles.visuals}>
           <div className={styles.imageWrapper}>

@@ -16,7 +16,6 @@ padding-bottom: 24px;
   
     100%);
     border-radius: 60px;
-    flex-wrap: wrap;
 }
 
 .visuals {
@@ -27,6 +26,9 @@ padding-bottom: 24px;
     position: relative;
 
     .imageWrapper {
+      @media (max-width: 860px) { 
+display: none;
+      }
       position: relative;
       display: flex;
       justify-content: center;
@@ -40,4 +42,6 @@ padding-bottom: 24px;
 
     }
   }
-
+.content{
+  width: 78%;
+}
