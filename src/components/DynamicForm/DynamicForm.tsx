@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import styles from './DynamicForm.module.scss'
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
-
-// Define Field and FormData types
+import styles from "./DynamicForm.module.scss";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { assignmentService } from "../../services/assignment.service";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 interface FieldConfig {
   value: string;
   label: string;
   listType?: string;
   datasource?: { records: { key: string; value: string }[] };
   inline?: boolean;
+  maxLength?: number | undefined;
 }
 
 interface Field {
@@ -20,9 +21,13 @@ interface Field {
 interface FormData {
   [key: string]: string;
 }
+interface DynamicFormProps {
+  fields: Field[];
+  caseUpdateId: string;
+  etag?: string;
+}
 
-const DynamicForm = ({ fields }: { fields: Field[] }) => {
-  console.log(fields);
+const DynamicForm = ({ fields, caseUpdateId, etag }: DynamicFormProps) => {
   const [formData, setFormData] = useState<FormData>({});
 
   const handleChange = (
@@ -42,9 +47,30 @@ const DynamicForm = ({ fields }: { fields: Field[] }) => {
     return cleanedLabel;
   }
 
+  function cleanKeys(obj: { [key: string]: any }): { [key: string]: any } {
+    const cleanedObject: { [key: string]: any } = {};
+
+    Object.keys(obj).forEach((key) => {
+      let cleanedKey = key.replace("@L ", "");
+
+      cleanedKey = cleanedKey.replace(/\s+/g, "");
+
+      if (
+        typeof obj[key] === "object" &&
+        obj[key] !== null &&
+        !Array.isArray(obj[key])
+      ) {
+        cleanedObject[cleanedKey] = cleanKeys(obj[key]);
+      } else {
+        cleanedObject[cleanedKey] = obj[key];
+      }
+    });
+
+    return cleanedObject;
+  }
+
   const generateField = (field: Field) => {
-    const { label, value, datasource } = field.config;
-    console.log(field, "sharoz");
+    const { label, datasource, maxLength } = field.config;
 
     switch (field.type) {
       case "TextInput":
@@ -52,11 +78,13 @@ const DynamicForm = ({ fields }: { fields: Field[] }) => {
           <div key={label}>
             <label htmlFor={label}>{convertLabel(label)}</label>
             <input
-              type="text"
+              maxLength={maxLength}
+              type={convertLabel(label) === "Email" ? "email" : "text"}
               id={label}
               name={label}
               value={formData[label] || ""}
               onChange={handleChange}
+              placeholder={convertLabel(label)}
             />
           </div>
         );
@@ -112,9 +140,11 @@ const DynamicForm = ({ fields }: { fields: Field[] }) => {
             <input
               type="email"
               id={label}
+              maxLength={maxLength}
               name={label}
               value={formData[label] || ""}
               onChange={handleChange}
+              placeholder={convertLabel(label)}
             />
           </div>
         );
@@ -140,15 +170,42 @@ const DynamicForm = ({ fields }: { fields: Field[] }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form Submitted: ", formData);
+
+    const updatedForm = cleanKeys(formData);
+    const submissionData = {
+      content: updatedForm,
+      pageInstructions: [],
+    };
+
+    assignmentService
+      .createAssignment(caseUpdateId, "Create", submissionData, etag!)
+      .then((res) =>
+        toast.success(
+          res.data.confirmationNote || "Form submitted successfully!",
+          {
+            autoClose: 5000,
+          }
+        )
+      )
+      .catch((error) => {
+        toast.error("Error submitting form. Please try again.", {
+          autoClose: 5000,
+        });
+        console.error(error);
+      });
+    setFormData({});
+    console.log("Form Submitted: ", submissionData);
   };
 
   return (
     <div className={styles.formContainer}>
+      <ToastContainer />
       <form className={styles.form} onSubmit={handleSubmit}>
         {fields && fields?.map((field) => generateField(field))}
         <div className={styles.formActions}>
-          <button type="submit">Submit  <i className="fas fa-arrow-right"></i></button>
+          <button type="submit">
+            Submit <i className="fas fa-arrow-right"></i>
+          </button>
         </div>
       </form>
     </div>

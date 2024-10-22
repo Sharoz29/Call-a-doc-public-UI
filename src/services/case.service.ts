@@ -42,7 +42,10 @@ function getCaseView(caseTypeID: any) {
       }
     )
     .then(function (response) {
-      return response.data;
+      return {
+        ...response.data,
+        etag: response.headers["etag"],
+      };
     })
     .catch(function (error) {
       return Promise.reject(error);

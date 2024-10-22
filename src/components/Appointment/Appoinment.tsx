@@ -1,15 +1,14 @@
 import styles from "./Appointment.module.scss";
 import appointment from "../../assets/appointment.png";
-import { assignmentService } from "../../services/assignment.service";
 import { useEffect, useState } from "react";
 import DynamicForm from "../DynamicForm/DynamicForm";
 import { caseService } from "../../services/case.service";
-
 
 interface FieldConfig {
   displayAs: string;
   label: string;
   datasource?: { records: { key: string; value: string }[] };
+  maxLength?: number | undefined;
 }
 
 interface Fields {
@@ -27,6 +26,8 @@ interface MappedField {
 
 const Appointment = () => {
   const [fields, setfields] = useState<Fields | undefined>(undefined);
+  const [caseId, setCaseId] = useState("");
+  const [etag, setEtag] = useState("");
 
   const token = sessionStorage.getItem("token");
 
@@ -34,8 +35,12 @@ const Appointment = () => {
     caseService
       .getCaseView("LCS-CallADoc-Work-AppointmentBooking")
       .then((res) => {
+        console.log(res);
         const fieldsData: Fields = res?.uiResources?.resources.fields;
+        const caseUpdateId = res.data?.caseInfo?.assignments?.[0]?.ID;
+        setCaseId(caseUpdateId);
         setfields(fieldsData);
+        setEtag(res.etag);
       });
   }, [token]);
 
@@ -59,6 +64,7 @@ const Appointment = () => {
             : fieldConfig.displayAs === "pxDropdown"
             ? "Dropdown"
             : "TextInput",
+        maxLength: fieldConfig.maxLength || null,
         config: {
           label: `@L ${fieldConfig.label}`,
           value: `@P .${key}`,
@@ -75,8 +81,12 @@ const Appointment = () => {
         <div className={styles.content}>
           <h3>Book an Appointment</h3>
           <div className="">
-            {mappedFields && mappedFields.length > 0 && (
-              <DynamicForm fields={mappedFields} />
+            {mappedFields && mappedFields.length > 0 && caseId && (
+              <DynamicForm
+                fields={mappedFields}
+                caseUpdateId={caseId}
+                etag={etag}
+              />
             )}
           </div>
         </div>

@@ -4,6 +4,7 @@ import { endpoints } from "../auth/global";
 export const assignmentService = {
   getAssignmentsView,
   getAssignmentsActions,
+  createAssignment,
 };
 
 const token = sessionStorage.getItem("token");
@@ -46,6 +47,36 @@ async function getAssignmentsActions(assignmentId: any, action: string) {
       {
         headers: {
           Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      return Promise.reject(error);
+    });
+}
+async function createAssignment(
+  caseId: string,
+  action: string,
+  reqBody: any,
+  etag: string
+) {
+  return axios
+    .patch(
+      encodeURI(
+        endpoints.PEGAAPIURL +
+          endpoints.ASSIGNMENTS +
+          `/${caseId}` +
+          endpoints.ACTIONS +
+          `/${action}?viewType=page`
+      ),
+      reqBody,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "if-match": etag,
         },
       }
     )

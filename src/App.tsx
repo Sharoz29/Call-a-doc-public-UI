@@ -11,35 +11,9 @@ import Header from "./components/header/Header";
 import Footer from "./components/Footer/Footer";
 import Appointment from "./components/Appointment/Appoinment";
 import { getToken } from "./auth/oauth.ts";
-import { casetypeService } from "./services/casetypes.service.ts";
-import { caseService } from "./services/case.service.ts";
-import { assignmentService } from "./services/assignment.service.ts";
 
 function App() {
   getToken();
-
-  casetypeService.getCaseTypes().then((caseTypes) => {
-    // console.log(caseTypes);
-  });
-
-  caseService
-    .getCaseView("LCS-CallADoc-Work-AppointmentBooking")
-    .then((res) => {
-      // console.log(res);
-    });
-  // caseService
-  //   .getCaseActions(`LCS-CALLADOC-WORK P-48040`, `pyChangeStage`)
-  //   .then((res) => {
-  //     console.log(res);
-  //   });
-
-  assignmentService
-    .getAssignmentsView(
-      `ASSIGN-WORKLIST%20LCS-CALLADOC-WORK%20A-29002!CREATEFORM_DEFAULT`
-    )
-    .then((res) => {
-      // console.log(res);
-    });
 
   return (
     <BrowserRouter>
