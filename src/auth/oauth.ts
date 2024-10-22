@@ -1,12 +1,13 @@
 import { axios } from "./axios.ts";
-import { pegaBaseUrl } from "./global.ts";
-const url = `${pegaBaseUrl}/prweb/PRRestService/oauth2/v1/token`;
+import { endpoints } from "./global.ts";
+const url = `${endpoints.PEGAURL}/prweb/PRRestService/oauth2/v1/token`;
 
-const client_id = "14965090564081136535";
-const client_secret = "5038AA181BD81B18D9E6113E7668A9FD";
+const client_id = endpoints.client_id;
+const client_secret = endpoints.client_secret;
+const grant_type = endpoints.grant_type;
 
 const data = new URLSearchParams();
-data.append("grant_type", "client_credentials");
+data.append("grant_type", grant_type);
 data.append("client_id", client_id);
 data.append("client_secret", client_secret);
 
