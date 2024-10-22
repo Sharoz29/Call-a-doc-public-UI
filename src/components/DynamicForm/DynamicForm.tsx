@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import styles from './DynamicForm.module.scss'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 // Define Field and FormData types
 interface FieldConfig {
@@ -141,11 +144,11 @@ const DynamicForm = ({ fields }: { fields: Field[] }) => {
   };
 
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit}>
+    <div className={styles.formContainer}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         {fields && fields?.map((field) => generateField(field))}
-        <div className="form-actions">
-          <button type="submit">Submit</button>
+        <div className={styles.formActions}>
+          <button type="submit">Submit  <i className="fas fa-arrow-right"></i></button>
         </div>
       </form>
     </div>

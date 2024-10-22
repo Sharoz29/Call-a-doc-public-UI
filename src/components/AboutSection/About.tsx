@@ -30,7 +30,7 @@ const AboutSection = () => {
             Our goal is to create a nurturing and supportive environment where our clients can flourish and experience
             the highest possible quality of life.
           </p>
-          <a href="#" className={styles.learnMoreButton}>Learn More &rarr;</a>
+          <a href='/about-us' className={styles.learnMoreButton}>Learn More &rarr;</a>
         </div>
       </section>
 

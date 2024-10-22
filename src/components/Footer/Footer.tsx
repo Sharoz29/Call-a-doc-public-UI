@@ -32,9 +32,6 @@ const Footer = () => {
                 <a href="/why-choose-us">Why Choose Us</a>
               </li>
               <li>
-                <a href="/testimonials">Testimonials</a>
-              </li>
-              <li>
                 <a href="/contact-us">Contact Us</a>
               </li>
             </ul>
