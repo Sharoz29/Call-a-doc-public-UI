@@ -1,12 +1,3 @@
-export function hostUrl(server: any) {
-  console.log(server);
-  return (
-    // process.env.node_env === "production" || server === "web"
-    // ? pegaBaseUrl
-    // :
-    "http://localhost:5173"
-  );
-}
 export const endpoints = {
   PEGAURL: `https://web.pega23.lowcodesol.co.uk`,
   PEGAAPIURL: `https://web.pega23.lowcodesol.co.uk/prweb/app/call-a-doctor/api/application/v2`,
