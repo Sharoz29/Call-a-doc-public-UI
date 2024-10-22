@@ -28,10 +28,7 @@ function getCaseById(id: any) {
 function getCaseView(caseTypeID: any) {
   return axios
     .post(
-      endpoints.PEGAAPIURL +
-        endpoints.CASES +
-        `??viewType=page` +
-        `&pageName=pyEmbedAssignment`,
+      endpoints.PEGAAPIURL + endpoints.CASES + `?viewType=page`,
       {
         caseTypeID: caseTypeID,
         content: {},
