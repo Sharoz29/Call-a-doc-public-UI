@@ -45,3 +45,53 @@ display: none;
 .content{
   width: 78%;
 }
+
+.AppointmentContent{
+  width: 80%;
+    padding: 9px 0px 0px 0px;
+    text-align: justify;
+    gap: 20px;
+}
+.appointmentBtnDiv{
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+
+  i {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    color: #00b3ff;
+  }
+
+  &.appointmentBtn {
+      background: linear-gradient(90deg, rgba(36, 126, 192, 1),rgba(72, 213, 196, 1));
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+
+    
+&:hover {
+background: linear-gradient(90deg,  rgb(72, 213, 196) 0%, rgb(36, 126, 192) 100%); 
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+&:focus {
+outline: none;
+box-shadow: 0 0 0 4px rgba(0, 150, 229, 0.3); 
+}
+  }
+}

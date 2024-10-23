@@ -64,6 +64,7 @@ const Header = () => {
           <a href="/about-us">About</a>
           <a href="/services">Services</a>
           <a href="/contact-us">Contact</a>
+          <a href="/Appointment">Appointment</a>
         </div>
         <div className={styles.contact}>
           <a className="phone"  href="tel:0000-000-000">
