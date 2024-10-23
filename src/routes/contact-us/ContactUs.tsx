@@ -72,8 +72,6 @@ const ContactUs = () => {
       };
     });
 
-  console.log(fields, caseId, etag);
-
   return (
     <>
       <section className={styles.contactMain}>

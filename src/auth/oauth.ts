@@ -44,10 +44,12 @@ export async function getToken() {
       return tokenData;
     } else {
       console.log("Token is expired. Fetching a new token...");
+      sessionStorage.clear();
       return await fetchNewToken();
     }
   } catch (error) {
     console.error("Failed to read access token:", error);
+    sessionStorage.clear();
     return await fetchNewToken();
   }
 }
@@ -64,7 +66,7 @@ async function fetchNewToken() {
       const createdAt = new Date();
       const access_token = tokenData.access_token;
 
-      // Store the new token and creation time in sessionStorage
+      sessionStorage.clear();
       sessionStorage.setItem("token", access_token);
       sessionStorage.setItem("tokenCreation", createdAt.toISOString());
 
