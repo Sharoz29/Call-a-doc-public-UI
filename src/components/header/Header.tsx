@@ -8,20 +8,27 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-
+import { useLocation } from "react-router-dom"; 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false); 
+  const location = useLocation();
+
 
   useEffect(() => {
     const navLinks = document.querySelectorAll(`.${styles.links} a`);
-    const currentPath = window.location.pathname;
+    
 
     navLinks.forEach((link) => {
-      if (link.getAttribute("href") === currentPath) {
+      link.classList.remove(styles.activeLink);
+    });
+
+
+    navLinks.forEach((link) => {
+      if (link.getAttribute("href") === location.pathname) {
         link.classList.add(styles.activeLink);
       }
     });
-  }, []);
+  }, [location.pathname]); 
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen); 
