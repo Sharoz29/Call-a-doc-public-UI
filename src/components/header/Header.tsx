@@ -64,7 +64,7 @@ const Header = () => {
           </a>
 
           <a href="/appointment" className={styles.appointmentBtn}>
-            Appointment
+           Book an Appointment
           </a>
         </div>
         <button className={styles.hamburger} onClick={toggleMenu}>
