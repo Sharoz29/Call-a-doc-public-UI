@@ -150,6 +150,19 @@
           padding: 0px ;
         }
     }
+
+    @media (max-width: 500px) {
+      .headerContainer {
+
+  
+        .mainImage {
+        img{
+          width: 84%;
+        }
+      
+        }
+      }
+    }
   }
 .rightIcon{
 
