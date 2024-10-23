@@ -1,0 +1,46 @@
+.contactMain{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 24px;
+      }
+    .contatctSection{
+        display: flex;
+        justify-content: space-between;
+     
+        padding: 50px;
+        width: 93%;
+        background: linear-gradient(180deg, white 0%,rgba(209, 244, 255, 1)
+        50%,rgba(215, 226, 250, 1)
+      
+        100%);
+        border-radius: 60px;
+    }
+    
+    .visuals {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 45%;
+        position: relative;
+    
+        .imageWrapper {
+          @media (max-width: 860px) { 
+    display: none;
+          }
+          position: relative;
+          display: flex;
+          justify-content: center;
+    
+          .mainImage {
+            border-radius: 30px;
+            width:93%;
+          
+          }
+    
+    
+        }
+      }
+    .content{
+      width: 78%;
+    }
+    
