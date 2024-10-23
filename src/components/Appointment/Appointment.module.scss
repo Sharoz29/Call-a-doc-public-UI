@@ -72,18 +72,21 @@ a {
     color: #00b3ff;
   }
 
-  &.appointmentBtn {
-      background: linear-gradient(90deg, rgba(36, 126, 192, 1),rgba(72, 213, 196, 1));
-    color: white;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    display: flex;
-    margin: 20px;
-    justify-content: center;
+}
+.appointmentBtn {
+  background: linear-gradient(90deg, rgba(36, 126, 192, 1),rgba(72, 213, 196, 1));
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  display: flex;
+  margin: 20px;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
 
-    
+  
 &:hover {
 background: linear-gradient(90deg,  rgb(72, 213, 196) 0%, rgb(36, 126, 192) 100%); 
 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -93,5 +96,4 @@ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 outline: none;
 box-shadow: 0 0 0 4px rgba(0, 150, 229, 0.3); 
 }
-  }
 }
