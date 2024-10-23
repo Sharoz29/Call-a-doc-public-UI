@@ -1,37 +1,34 @@
 import styles from "./Header.module.scss";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons"; 
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
   faMapMarkerAlt,
   faEnvelope,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import { useLocation } from "react-router-dom"; 
+import { useLocation } from "react-router-dom";
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false); 
+  const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-
 
   useEffect(() => {
     const navLinks = document.querySelectorAll(`.${styles.links} a`);
-    
 
     navLinks.forEach((link) => {
       link.classList.remove(styles.activeLink);
     });
-
 
     navLinks.forEach((link) => {
       if (link.getAttribute("href") === location.pathname) {
         link.classList.add(styles.activeLink);
       }
     });
-  }, [location.pathname]); 
+  }, [location.pathname]);
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen); 
+    setMenuOpen(!menuOpen);
   };
 
   return (
@@ -57,22 +54,17 @@ const Header = () => {
       <nav className={styles.navbar}>
         <div className={styles.logo}>
           <a href="/">Call a Doctor</a>
-   
         </div>
-        <div className={`${styles.links} ${menuOpen ? styles.showMenu : ''}`}>
+        <div className={`${styles.links} ${menuOpen ? styles.showMenu : ""}`}>
           <a href="/">Home</a>
           <a href="/about-us">About</a>
           <a href="/services">Services</a>
           <a href="/contact-us">Contact</a>
-          <a href="/Appointment">Appointment</a>
+          <a href="/appointment">Appointment</a>
         </div>
         <div className={styles.contact}>
-          <a className="phone"  href="tel:0000-000-000">
-            <FontAwesomeIcon icon={faPhone} /> <span> 0000-000-000  </span>
-          </a>
-
-          <a href="/appointment" className={styles.appointmentBtn}>
-           Book an Appointment
+          <a className="phone" href="tel:0000-000-000">
+            <FontAwesomeIcon icon={faPhone} /> <span> 0000-000-000 </span>
           </a>
         </div>
         <button className={styles.hamburger} onClick={toggleMenu}>
