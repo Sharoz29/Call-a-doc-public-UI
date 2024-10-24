@@ -35,6 +35,9 @@
         flex: 1;
         color: white;
         padding-right: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
   
         h2 {
           font-size: 28px;

@@ -15,11 +15,7 @@ const JourneySection = () => {
       <div className={styles.contentContainer}>
         <div className={styles.textContainer}>
           <h2>Start Your Journey With Us Now</h2>
-          <a href='/appointment
-          
-          
-          
-           ' className={styles.ctaButton}>Start Now</a>
+          <a href='/appointment' className={styles.ctaButton}>Start Now</a>
         </div>
 
         <div className={styles.imageContainer}>
