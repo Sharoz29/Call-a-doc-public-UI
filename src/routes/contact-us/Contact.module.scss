@@ -116,4 +116,20 @@
     .content{
       width: 78%;
     }
+    .thankYouMessage {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      color: green; 
+      font-size: 1.3em; 
+      margin-top: 50px;
+      gap: 25px;
+      margin-left: 50px;
+    }
+    
+    .successIcon {
+      margin-right: 10px; 
+      width: 100px;
+      height: 100px!important;
+    }
     

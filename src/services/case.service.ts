@@ -9,25 +9,29 @@ export const caseService = {
 
 const token = sessionStorage.getItem("token");
 
-function getCaseById(id: any) {
-  return axios
-    .get(encodeURI(endpoints.PEGAAPIURL + endpoints.CASES + "/" + id), {
-      headers: {
-        "Access-Control-Expose-Headers": "etag",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then(function (response) {
-      response.data["etag"] = response.headers.etag;
-      return response.data;
-    })
-    .catch(function (error) {
-      return Promise.reject(error);
-    });
+async function getCaseById(id: any) {
+  try {
+    return await axios
+      .get(encodeURI(endpoints.PEGAAPIURL + endpoints.CASES + "/" + id), {
+        headers: {
+          "Access-Control-Expose-Headers": "etag",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(function (response) {
+        response.data["etag"] = response.headers.etag;
+        return response.data;
+      })
+      .catch(function (error) {
+        return Promise.reject(error);
+      });
+  } catch (error) {
+    return await Promise.reject(error);
+  }
 }
-function getCaseView(caseTypeID: any) {
-  return axios
-    .post(
+async function getCaseView(caseTypeID: any) {
+  try {
+    const response = await axios.post(
       endpoints.PEGAAPIURL + endpoints.CASES + `?viewType=page`,
       {
         caseTypeID: caseTypeID,
@@ -40,21 +44,21 @@ function getCaseView(caseTypeID: any) {
           "Content-Type": "application/json",
         },
       }
-    )
-    .then(function (response) {
-      return {
-        ...response.data,
-        etag: response.headers["etag"],
-      };
-    })
-    .catch(function (error) {
-      return Promise.reject(error);
-    });
+    );
+    return {
+      ...response.data,
+      etag: response.headers["etag"],
+      actions: response?.data?.data?.caseInfo?.assignments[0]?.actions,
+      navigationSteps: response?.data.uiResources.navigation.steps,
+    };
+  } catch (error) {
+    return await Promise.reject(error);
+  }
 }
 
-function getCaseActions(caseId: any, actionId: any) {
-  return axios
-    .get(
+async function getCaseActions(caseId: any, actionId: any) {
+  try {
+    const response = await axios.get(
       encodeURI(
         endpoints.PEGAAPIURL +
           endpoints.CASES +
@@ -68,11 +72,9 @@ function getCaseActions(caseId: any, actionId: any) {
           Authorization: `Bearer ${token}`,
         },
       }
-    )
-    .then(function (response) {
-      return response.data;
-    })
-    .catch(function (error) {
-      return Promise.reject(error);
-    });
+    );
+    return response.data;
+  } catch (error) {
+    return await Promise.reject(error);
+  }
 }
