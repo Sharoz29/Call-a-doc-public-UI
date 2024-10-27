@@ -1,43 +1,136 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./DynamicForm.module.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { assignmentService } from "../../services/assignment.service";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-interface FieldConfig {
+import { caseService } from "../../services/case.service";
+interface FieldData {
   value: string;
   label: string;
   listType?: string;
   datasource?: { records: { key: string; value: string }[] };
   inline?: boolean;
   maxLength?: number | undefined;
+  readOnly?: boolean;
 }
 
 interface Field {
-  type: "TextInput" | "Dropdown" | "RadioButtons" | "Email" | "Decimal";
-  config: FieldConfig;
+  type: string;
+  config: FieldData;
+}
+interface FieldConfig {
+  displayAs: string;
+  type: string;
+  label: string;
+  datasource?: { records: { key: string; value: string }[] };
+  maxLength?: number | undefined;
+  readOnly?: boolean;
+}
+
+interface Fields {
+  [key: string]: FieldConfig[];
 }
 
 interface FormData {
   [key: string]: string;
 }
 interface DynamicFormProps {
-  fields: Field[];
-  caseUpdateId: string;
-  etag?: string;
+  caseTypeId: string;
+}
+interface MappedField {
+  type: Field["type"];
+  config: {
+    label: string;
+    value: string;
+    datasource?: { records: { key: string; value: string }[] };
+  };
 }
 
-const DynamicForm = ({ fields, caseUpdateId, etag }: DynamicFormProps) => {
+const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
+  const [fields, setfields] = useState<Fields | undefined>(undefined);
+  const [mappedFields, setMappedFields] = useState<MappedField[] | undefined>(
+    []
+  );
+  const [caseId, setCaseId] = useState("");
+  const [etag, setEtag] = useState("");
+  const [actions, setActions] = useState<any>();
   const [formData, setFormData] = useState<FormData>({});
-  const navigate = useNavigate();
+  const [filteredContent, setFilteredContent] = useState<any>();
+
+  const token = sessionStorage.getItem("token");
+
+  useEffect(() => {
+    caseService.getCaseView(caseTypeId).then((res) => {
+      const fieldsData: Fields = res?.uiResources?.resources.fields;
+      const caseUpdateId = res.data?.caseInfo?.assignments?.[0]?.ID;
+      const actions = res.actions[0];
+      const content = res?.data.caseInfo.content;
+
+      const filteredcontent = Object.keys(content).reduce((acc, key) => {
+        if (
+          !key.startsWith("px") &&
+          !key.startsWith("py") &&
+          !/^[a-z]/.test(key)
+        ) {
+          acc[key] = content[key];
+        }
+        return acc;
+      }, {} as { [key: string]: string });
+
+      setFilteredContent(filteredcontent);
+      setFormData(filteredcontent);
+      setCaseId(caseUpdateId);
+      setfields(fieldsData);
+      setEtag(res.etag);
+      setActions(actions);
+    });
+  }, [token, caseTypeId]);
+
+  const processFields = (
+    fields: Fields | undefined
+  ): MappedField[] | undefined => {
+    if (!fields) return undefined;
+
+    const filteredFields: Fields = Object.keys(fields)
+      .filter((key) => !key.startsWith("px") && !key.startsWith("py"))
+      .reduce((obj: Fields, key: string) => {
+        obj[key] = fields![key];
+        return obj;
+      }, {});
+
+    return Object.keys(filteredFields).map((key) => {
+      const fieldConfig = filteredFields[key][0];
+      return {
+        type: fieldConfig.type as Field["type"],
+        maxLength: fieldConfig.maxLength || null,
+        readOnly: fieldConfig.readOnly || null,
+        config: {
+          label: `@L ${fieldConfig.label}`,
+          value: `@P .${key}`,
+          ...(fieldConfig.datasource && {
+            datasource: fieldConfig.datasource,
+          }),
+        },
+      };
+    });
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
+    const { name, value, type } = e.target;
+
+    let updatedValue = value;
+
+    if (type === "date") {
+      const selectedDate = new Date(value);
+      updatedValue = selectedDate.toISOString();
+    }
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: updatedValue,
     });
   };
 
@@ -55,7 +148,14 @@ const DynamicForm = ({ fields, caseUpdateId, etag }: DynamicFormProps) => {
     Object.keys(obj).forEach((key) => {
       let cleanedKey = key.replace("@L ", "");
 
-      cleanedKey = cleanedKey.replace(/\s+/g, "");
+      cleanedKey = cleanedKey.includes(" ")
+        ? cleanedKey
+            .toLowerCase()
+            .replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, (match, index) =>
+              index === 0 ? match.toUpperCase() : match.toUpperCase()
+            )
+            .replace(/\s+/g, "")
+        : cleanedKey.replace(/\s+/g, "");
 
       if (
         typeof obj[key] === "object" &&
@@ -71,11 +171,21 @@ const DynamicForm = ({ fields, caseUpdateId, etag }: DynamicFormProps) => {
     return cleanedObject;
   }
 
-  const generateField = (field: Field) => {
-    const { label, datasource, maxLength } = field.config;
+  const generateField = (field: Field, filledContent?: any) => {
+    const { label, datasource, maxLength, readOnly } = field.config;
+    const formattedKey = convertLabel(label)
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join("");
+
+    console.log(`${formattedKey}`);
+
+    const currentValue =
+      formData[label] || (filledContent ? filledContent[formattedKey] : "");
+    console.log(currentValue);
 
     switch (field.type) {
-      case "TextInput":
+      case "Text":
         return (
           <div key={label}>
             <label htmlFor={label}>{convertLabel(label)}</label>
@@ -84,7 +194,7 @@ const DynamicForm = ({ fields, caseUpdateId, etag }: DynamicFormProps) => {
               type={convertLabel(label) === "Email" ? "email" : "text"}
               id={label}
               name={label}
-              value={formData[label] || ""}
+              value={currentValue}
               onChange={handleChange}
               placeholder={convertLabel(label)}
             />
@@ -151,7 +261,7 @@ const DynamicForm = ({ fields, caseUpdateId, etag }: DynamicFormProps) => {
           </div>
         );
 
-      case "Decimal":
+      case "Integer":
         return (
           <div key={label}>
             <label htmlFor={label}>{convertLabel(label)}</label>
@@ -165,53 +275,107 @@ const DynamicForm = ({ fields, caseUpdateId, etag }: DynamicFormProps) => {
           </div>
         );
 
+      case "Date":
+        return (
+          <div key={label}>
+            <label htmlFor={label}>{convertLabel(label)}</label>
+            <input
+              type="date"
+              id={label}
+              name={label}
+              value={
+                formData[label]
+                  ? new Date(formData[label]).toISOString().split("T")[0]
+                  : ""
+              }
+              onChange={handleChange}
+              readOnly={readOnly || false}
+            />
+          </div>
+        );
       default:
         return null;
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  function routeNextStep(etag: any, fields: Fields | undefined, action: any) {
+    setCaseId(caseId);
+    setfields(fields);
+    setActions(action);
+    setEtag(etag);
+    setFormData({});
+  }
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let count = 0;
     const updatedForm = cleanKeys(formData);
     const submissionData = {
       content: updatedForm,
       pageInstructions: [],
     };
 
-    assignmentService
-      .createAssignment(caseUpdateId, "Create", submissionData, etag!)
-      .then((res) =>
-        toast.success(
-          res.data.confirmationNote || "Form submitted successfully!",
-          {
-            autoClose: 5000,
-            onClose: () => navigate("/"),
-          }
-        )
-      )
+    await assignmentService
+      .createAssignment(caseId, actions.ID, submissionData, etag!)
+      .then((res) => {
+        count++;
+        console.log(res.hasOwnProperty("nextAssignmentInfo"));
+        if (!res.hasOwnProperty("nextAssignmentInfo")) {
+          toast.success(
+            res.data.confirmationNote || "Form submitted successfully!",
+            {
+              autoClose: 5000,
+            }
+          );
+        } else {
+          const nextFields = res.uiResources.resources.fields;
+          const nextAction = res.data.caseInfo.assignments[0].actions[0];
+          const content = res?.data?.caseInfo?.content;
+
+          const filteredcontent = Object.keys(content).reduce((acc, key) => {
+            if (
+              !key.startsWith("px") &&
+              !key.startsWith("py") &&
+              !/^[a-z]/.test(key)
+            ) {
+              acc[key] = content[key];
+            }
+            return acc;
+          }, {} as { [key: string]: string });
+
+          setFilteredContent(filteredcontent);
+          routeNextStep(res.etag, nextFields, nextAction);
+        }
+      })
       .catch((error) => {
         toast.error("Error submitting form. Please try again.", {
           autoClose: 5000,
-          onClose: () => navigate("/"),
         });
         console.error(error);
       });
-    setFormData({});
     console.log("Form Submitted: ", submissionData);
   };
+  useEffect(() => {
+    const processedFields = processFields(fields);
+    setMappedFields(processedFields || []);
+  }, [fields]);
 
   return (
     <div className={styles.formContainer}>
       <ToastContainer />
-      <form className={styles.form} onSubmit={handleSubmit}>
-        {fields && fields?.map((field) => generateField(field))}
-        <div className={styles.formActions}>
-          <button type="submit">
-            Submit <i className="fas fa-arrow-right"></i>
-          </button>
-        </div>
-      </form>
+      {mappedFields && mappedFields.length > 0 && caseId && (
+        <form className={styles.form} onSubmit={handleSubmit}>
+          {fields &&
+            mappedFields?.map((field: any) =>
+              generateField(field, filteredContent)
+            )}
+          <div className={styles.formActions}>
+            <button type="submit">
+              Submit <i className="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };

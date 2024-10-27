@@ -77,12 +77,13 @@ async function createAssignment(
         headers: {
           Authorization: `Bearer ${token}`,
           "if-match": etag,
+          context: "app/modal_1",
         },
       }
     )
     .then(function (response) {
       response.data["etag"] = response.headers.etag;
-      return response.data;
+      return { ...response.data, etag: response.headers["etag"] };
     })
     .catch(function (error) {
       return Promise.reject(error);

@@ -47,6 +47,16 @@
       border-color: #0096e5;
     }
   }
+  input[type="date"]
+  {
+    width:100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.2s ease-in-out;
+  }
 
 }
 
