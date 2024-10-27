@@ -62,7 +62,6 @@
       }
   
       .readMore {
-        
         background-color: white;
         padding: 10px 20px;
         border-radius: 30px;
@@ -79,6 +78,9 @@
     }
     .innerServiceCard{
         padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     }
   
 
@@ -135,7 +137,6 @@
       }
   
       .serviceCard {
-        padding: 20px;
       }
   
       .serviceIcon {

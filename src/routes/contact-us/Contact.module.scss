@@ -15,6 +15,79 @@
         100%);
         border-radius: 60px;
     }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr; 
+      gap: 15px;
+      width: 67%;
+      padding: 15px 0px 0px 1px;
+  
+      @media (min-width: 922px) { 
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      @media (max-width: 914px) { 
+        width: 100%;
+     
+      }
+  
+      @media (max-width: 700px) { 
+    display: flex;
+    flex-direction: column;
+     
+      }
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="textarea"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      outline: none;
+      transition: border 0.2s ease-in-out;
+  
+      &:focus {
+        border-color: #0096e5;
+      }
+    }
+
+    .formActions {
+      grid-column: span 2; 
+          display: flex;
+          margin-top: 20px; 
+      
+      button {
+        
+        background: linear-gradient(90deg, rgb(36, 126, 192), rgb(72, 213, 196));
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    
+    
+        &:hover {
+          background: linear-gradient(90deg,  rgb(72, 213, 196) 0%, rgb(36, 126, 192) 100%); 
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+    
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 0 4px rgba(0, 150, 229, 0.3); 
+        }
+      }
+    }
     
     .visuals {
         display: flex;

@@ -28,6 +28,24 @@ const ContactUs = () => {
   const [fields, setfields] = useState<Fields | undefined>(undefined);
   const [caseId, setCaseId] = useState("");
   const [etag, setEtag] = useState("");
+    const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message,setMessage]=useState("");
+  const [address,setAddress]=useState("")
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = {
+      name,
+      email,
+      phone,
+      address,
+      message
+    };
+    console.log("Form Submitted", formData);
+  };
+
 
   const token = sessionStorage.getItem("token");
 
@@ -79,13 +97,84 @@ const ContactUs = () => {
           <div className={styles.content}>
             <h3>Contact Us</h3>
             <div className="">
-              {mappedFields && mappedFields.length > 0 && caseId && (
+              {/* {mappedFields && mappedFields.length > 0 && caseId && (
                 <DynamicForm
                   fields={mappedFields}
                   caseUpdateId={caseId}
                   etag={etag}
                 />
-              )}
+              )} */}
+            <form onSubmit={handleSubmit}>
+
+              <div >
+              <label htmlFor="name">Name</label>
+               <input
+                  type="text"
+                  id="name"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  maxLength={100}
+                  className={styles.inputField}
+                />
+              </div>
+
+
+              <div>
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={styles.inputField}
+                />
+              </div>
+              <div>
+                <label htmlFor="address">Address</label>
+                <input
+                  type="text"
+                  id="address"
+                  placeholder="Address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  className={styles.inputField}
+                />
+              </div>
+              <div>
+                <label htmlFor="phone">Phone</label>
+                <input
+                  type="number"
+                  id="phone"
+                  placeholder="Phone number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className={styles.inputField}
+                />
+              </div>
+         
+
+              <div>
+                <label >Message</label>
+                <textarea
+                  id="textarea"
+                  placeholder="Message"
+                  value={message  }
+                  onChange={(e) => setMessage(e.target.value)}
+                  className={styles.inputField}
+                />
+              </div>
+
+          
+<div className={styles.formActions} >
+
+              <button type="submit" className={styles.submitButton}>
+                Submit
+              </button>
+</div>
+            </form>
+
             </div>
           </div>
           <div className={styles.visuals}>
