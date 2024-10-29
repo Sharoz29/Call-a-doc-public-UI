@@ -32,6 +32,7 @@ const Header = () => {
   };
 
   return (
+    <>
     <header className={styles.header}>
       <div>
         <div className={styles.topbar}>
@@ -51,6 +52,7 @@ const Header = () => {
         </div>
       </div>
 
+    </header>
       <nav className={styles.navbar}>
         <div className={styles.logo}>
           <a href="/">Call a Doctor</a>
@@ -71,7 +73,7 @@ const Header = () => {
           <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} />
         </button>
       </nav>
-    </header>
+    </>
   );
 };
 

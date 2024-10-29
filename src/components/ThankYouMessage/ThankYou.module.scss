@@ -1,0 +1,116 @@
+.thankYouContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    animation: fadeIn 1.5s ease forwards;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .iconContainer {
+    margin-bottom: 20px;
+    width: 80px;
+    height: 70px
+  }
+  
+  .checkmark {
+    width: 100%;
+    height: 100%;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: linear-gradient(90deg, rgb(72, 213, 196), rgb(36, 126, 192));
+    animation: popIn 0.5s ease forwards;
+  }
+  
+  @keyframes popIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  .checkmarkCircle {
+    fill: #4CAF50; 
+    stroke: none;
+    animation: circleDraw 0.5s ease forwards;
+  }
+  
+  @keyframes circleDraw {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  .checkmarkCheck {
+    stroke: white;
+    stroke-width: 4;
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    animation: checkDraw 0.5s 0.5s ease forwards;
+  }
+  
+  @keyframes checkDraw {
+    from { stroke-dashoffset: 40; }
+    to { stroke-dashoffset: 0; }
+  }
+  
+  .animatedMessage {
+    margin-bottom: 20px;
+  }
+  
+  .thankYouText {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 10px;
+    animation: textAppear 1.5s ease forwards;
+  }
+  
+  .subText {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .underline {
+    width: 0;
+    height: 3px;
+    background: #4CAF50;
+    margin: 10px auto;
+    animation: underlineGrow 1.5s ease forwards;
+  }
+  
+  @keyframes textAppear {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  @keyframes underlineGrow {
+    from { width: 0; }
+    to { width: 50%; }
+  }
+  
+  .backButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background: linear-gradient(90deg, rgb(72, 213, 196), rgb(36, 126, 192));;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #388E3C;
+    }
+  
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 5px #4CAF50;
+    }
+  }
+  

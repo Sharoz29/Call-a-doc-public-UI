@@ -5,6 +5,8 @@ import { assignmentService } from "../../services/assignment.service";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { caseService } from "../../services/case.service";
+import ClipLoader from "react-spinners/ClipLoader";
+import ThankYou from "../ThankYouMessage/ThankYou";
 interface FieldData {
   value: string;
   label: string;
@@ -57,10 +59,16 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
   const [actions, setActions] = useState<any>();
   const [formData, setFormData] = useState<FormData>({});
   const [filteredContent, setFilteredContent] = useState<any>();
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const stepLabels = ["Start","Patient Info", "Insurance Info", "Appointment Booking"];
 
   const token = sessionStorage.getItem("token");
+  
 
   useEffect(() => {
+    setLoading(true);
     caseService.getCaseView(caseTypeId).then((res) => {
       const fieldsData: Fields = res?.uiResources?.resources.fields;
       const caseUpdateId = res.data?.caseInfo?.assignments?.[0]?.ID;
@@ -84,6 +92,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
       setfields(fieldsData);
       setEtag(res.etag);
       setActions(actions);
+      setLoading(false);
     });
   }, [token, caseTypeId]);
 
@@ -321,11 +330,12 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
         count++;
         console.log(res.hasOwnProperty("nextAssignmentInfo"));
         if (!res.hasOwnProperty("nextAssignmentInfo")) {
+        setFormSubmitted(true);
           toast.success(
             res.data.confirmationNote || "Form submitted successfully!",
             {
               autoClose: 5000,
-            }
+            } 
           );
         } else {
           const nextFields = res.uiResources.resources.fields;
@@ -346,6 +356,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
           setFilteredContent(filteredcontent);
           routeNextStep(res.etag, nextFields, nextAction);
         }
+        setCurrentStep(currentStep + 1);
       })
       .catch((error) => {
         toast.error("Error submitting form. Please try again.", {
@@ -362,19 +373,74 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
 
   return (
     <div className={styles.formContainer}>
+   {loading ? (
+        <div className={styles.loaderContainer}>
+          <ClipLoader className={styles.loader} loading={loading} size={50} />
+          <p>Loading form, please wait...</p>
+        </div>
+      ) : (
+        <>
+        
+
+        <div className={styles.stepProgressBar}>
+  { !formSubmitted && stepLabels.map((label, index) => (
+    <div
+      key={index}
+      className={`${styles.stepWrapper} ${
+        index + 1 <= currentStep ? styles.completed : ""
+      }`}
+    >
+      <div
+        className={`${styles.stepCircle} ${
+          index + 1 <= currentStep ? styles.completed : ""
+        }`}
+      >
+        {index + 1 <= currentStep ? (
+          <i className="fas fa-check"></i>
+        ) : (
+          <span>{index + 1}</span>
+        )}
+      </div>
+
+      {index < stepLabels.length - 1 && (
+        <div
+          className={`${styles.stepLine} ${
+            index + 1 < currentStep ? styles.completedLine : ""
+          }`}
+        ></div>
+      )}
+
+      <p className={styles.stepLabel}>{label}</p>
+    </div>
+  ))}
+</div>
       <ToastContainer />
-      {mappedFields && mappedFields.length > 0 && caseId && (
+
+      {formSubmitted && (
+        <div>
+
+          <ThankYou/>
+
+        </div>
+      )
+
+
+      }
+      { !formSubmitted && mappedFields && mappedFields.length > 0 && caseId && (
         <form className={styles.form} onSubmit={handleSubmit}>
           {fields &&
             mappedFields?.map((field: any) =>
               generateField(field, filteredContent)
-            )}
+          )}
           <div className={styles.formActions}>
             <button type="submit">
               Submit <i className="fas fa-arrow-right"></i>
             </button>
           </div>
         </form>
+     
+      )}
+          </>
       )}
     </div>
   );
