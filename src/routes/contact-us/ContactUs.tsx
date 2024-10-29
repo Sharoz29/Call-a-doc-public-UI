@@ -7,6 +7,7 @@ import { assignmentService } from "../../services/assignment.service";
 import { ToastContainer, toast } from "react-toastify";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ThankYou from "../../components/ThankYouMessage/ThankYou";
 
 const ContactUs = () => {
   const [name, setName] = useState("");
@@ -51,24 +52,19 @@ const ContactUs = () => {
   };
   return (
     <>
-      <ToastContainer />
+      <ToastContainer  />
+
       <section className={styles.contactMain}>
         <div className={styles.contatctSection}>
           <div className={styles.content}>
-            <h3>Contact Us</h3>
             {isSubmitted ? (
-              <div className={styles.thankYouMessage}>
-                <FontAwesomeIcon
-                  icon={faCheckCircle}
-                  className={styles.successIcon}
-                />
-                <p>
-                  Thank you for reaching out to us, someone will contact you
-                  shortly.
-                </p>
+              <div>
+                <ThankYou/>
+                 
               </div>
             ) : (
               <div className="">
+                <h3>Contact Us</h3>
                 <form onSubmit={handleSubmit}>
                   <div>
                     <label htmlFor="name">Name</label>
