@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import styles from "./ThankYou.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const ThankYou: React.FC = () => {
+  const navigate = useNavigate();
   const handleGoBack = () => {
-    window.location.reload();
+    navigate("/");
   };
 
   return (
@@ -15,7 +17,11 @@ const ThankYou: React.FC = () => {
           viewBox="0 0 52 52"
         >
           <circle className={styles.checkmarkCircle} cx="26" cy="26" r="25" />
-          <path className={styles.checkmarkCheck} fill="none" d="M14 27l7 7 16-16" />
+          <path
+            className={styles.checkmarkCheck}
+            fill="none"
+            d="M14 27l7 7 16-16"
+          />
         </svg>
       </div>
       <div className={styles.animatedMessage}>

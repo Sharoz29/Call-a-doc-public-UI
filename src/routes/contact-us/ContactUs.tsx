@@ -5,8 +5,6 @@ import { caseService } from "../../services/case.service";
 import { actions, caseTypeIds } from "../../auth/global";
 import { assignmentService } from "../../services/assignment.service";
 import { ToastContainer, toast } from "react-toastify";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ThankYou from "../../components/ThankYouMessage/ThankYou";
 
 const ContactUs = () => {
@@ -52,15 +50,14 @@ const ContactUs = () => {
   };
   return (
     <>
-      <ToastContainer  />
+      <ToastContainer />
 
       <section className={styles.contactMain}>
         <div className={styles.contatctSection}>
           <div className={styles.content}>
             {isSubmitted ? (
               <div>
-                <ThankYou/>
-                 
+                <ThankYou />
               </div>
             ) : (
               <div className="">

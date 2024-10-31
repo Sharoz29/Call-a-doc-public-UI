@@ -1,3 +1,5 @@
+// TO DO: Ask Zain to make insurance number a textInput
+
 import React, { useEffect, useState } from "react";
 import styles from "./DynamicForm.module.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -62,10 +64,14 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const stepLabels = ["Start","Patient Info", "Insurance Info", "Appointment Booking"];
+  const stepLabels = [
+    "Start",
+    "Patient Info",
+    "Insurance Info",
+    "Appointment Booking",
+  ];
 
   const token = sessionStorage.getItem("token");
-  
 
   useEffect(() => {
     setLoading(true);
@@ -111,7 +117,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
     return Object.keys(filteredFields).map((key) => {
       const fieldConfig = filteredFields[key][0];
       return {
-        type: fieldConfig.type as Field["type"],
+        type: fieldConfig.displayAs.replace(/^px/, "") as Field["type"],
         maxLength: fieldConfig.maxLength || null,
         readOnly: fieldConfig.readOnly || null,
         config: {
@@ -187,14 +193,11 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join("");
 
-    console.log(`${formattedKey}`);
-
     const currentValue =
       formData[label] || (filledContent ? filledContent[formattedKey] : "");
-    console.log(currentValue);
 
     switch (field.type) {
-      case "Text":
+      case "TextInput":
         return (
           <div key={label}>
             <label htmlFor={label}>{convertLabel(label)}</label>
@@ -284,7 +287,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
           </div>
         );
 
-      case "Date":
+      case "DateTime":
         return (
           <div key={label}>
             <label htmlFor={label}>{convertLabel(label)}</label>
@@ -328,14 +331,13 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
       .createAssignment(caseId, actions.ID, submissionData, etag!)
       .then((res) => {
         count++;
-        console.log(res.hasOwnProperty("nextAssignmentInfo"));
         if (!res.hasOwnProperty("nextAssignmentInfo")) {
-        setFormSubmitted(true);
+          setFormSubmitted(true);
           toast.success(
             res.data.confirmationNote || "Form submitted successfully!",
             {
               autoClose: 5000,
-            } 
+            }
           );
         } else {
           const nextFields = res.uiResources.resources.fields;
@@ -373,74 +375,70 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
 
   return (
     <div className={styles.formContainer}>
-   {loading ? (
+      {loading ? (
         <div className={styles.loaderContainer}>
           <ClipLoader className={styles.loader} loading={loading} size={50} />
           <p>Loading form, please wait...</p>
         </div>
       ) : (
         <>
-        
+          <div className={styles.stepProgressBar}>
+            {!formSubmitted &&
+              stepLabels.map((label, index) => (
+                <div
+                  key={index}
+                  className={`${styles.stepWrapper} ${
+                    index + 1 <= currentStep ? styles.completed : ""
+                  }`}
+                >
+                  <div
+                    className={`${styles.stepCircle} ${
+                      index + 1 <= currentStep ? styles.completed : ""
+                    }`}
+                  >
+                    {index + 1 <= currentStep ? (
+                      <i className="fas fa-check"></i>
+                    ) : (
+                      <span>{index + 1}</span>
+                    )}
+                  </div>
 
-        <div className={styles.stepProgressBar}>
-  { !formSubmitted && stepLabels.map((label, index) => (
-    <div
-      key={index}
-      className={`${styles.stepWrapper} ${
-        index + 1 <= currentStep ? styles.completed : ""
-      }`}
-    >
-      <div
-        className={`${styles.stepCircle} ${
-          index + 1 <= currentStep ? styles.completed : ""
-        }`}
-      >
-        {index + 1 <= currentStep ? (
-          <i className="fas fa-check"></i>
-        ) : (
-          <span>{index + 1}</span>
-        )}
-      </div>
+                  {index < stepLabels.length - 1 && (
+                    <div
+                      className={`${styles.stepLine} ${
+                        index + 1 < currentStep ? styles.completedLine : ""
+                      }`}
+                    ></div>
+                  )}
 
-      {index < stepLabels.length - 1 && (
-        <div
-          className={`${styles.stepLine} ${
-            index + 1 < currentStep ? styles.completedLine : ""
-          }`}
-        ></div>
-      )}
-
-      <p className={styles.stepLabel}>{label}</p>
-    </div>
-  ))}
-</div>
-      <ToastContainer />
-
-      {formSubmitted && (
-        <div>
-
-          <ThankYou/>
-
-        </div>
-      )
-
-
-      }
-      { !formSubmitted && mappedFields && mappedFields.length > 0 && caseId && (
-        <form className={styles.form} onSubmit={handleSubmit}>
-          {fields &&
-            mappedFields?.map((field: any) =>
-              generateField(field, filteredContent)
-          )}
-          <div className={styles.formActions}>
-            <button type="submit">
-              Submit <i className="fas fa-arrow-right"></i>
-            </button>
+                  <p className={styles.stepLabel}>{label}</p>
+                </div>
+              ))}
           </div>
-        </form>
-     
-      )}
-          </>
+          <ToastContainer />
+
+          {formSubmitted && (
+            <div>
+              <ThankYou />
+            </div>
+          )}
+          {!formSubmitted &&
+            mappedFields &&
+            mappedFields.length > 0 &&
+            caseId && (
+              <form className={styles.form} onSubmit={handleSubmit}>
+                {fields &&
+                  mappedFields?.map((field: any) =>
+                    generateField(field, filteredContent)
+                  )}
+                <div className={styles.formActions}>
+                  <button type="submit">
+                    Submit <i className="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+              </form>
+            )}
+        </>
       )}
     </div>
   );
