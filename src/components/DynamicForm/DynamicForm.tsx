@@ -1,5 +1,3 @@
-// TO DO: Ask Zain to make insurance number a textInput
-
 import React, { useEffect, useState } from "react";
 import styles from "./DynamicForm.module.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -17,11 +15,15 @@ interface FieldData {
   inline?: boolean;
   maxLength?: number | undefined;
   readOnly?: boolean;
+  required?: boolean;
 }
 
 interface Field {
   type: string;
   config: FieldData;
+  maxLength?: number | undefined;
+  readOnly?: boolean;
+  required?: boolean;
 }
 interface FieldConfig {
   displayAs: string;
@@ -30,6 +32,7 @@ interface FieldConfig {
   datasource?: { records: { key: string; value: string }[] };
   maxLength?: number | undefined;
   readOnly?: boolean;
+  required?: boolean;
 }
 
 interface Fields {
@@ -52,7 +55,7 @@ interface MappedField {
 }
 
 const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
-  const [fields, setfields] = useState<Fields | undefined>(undefined);
+  const [fields, setfields] = useState<any | undefined>(undefined);
   const [mappedFields, setMappedFields] = useState<MappedField[] | undefined>(
     []
   );
@@ -80,6 +83,13 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
       const caseUpdateId = res.data?.caseInfo?.assignments?.[0]?.ID;
       const actions = res.actions[0];
       const content = res?.data.caseInfo.content;
+
+      const viewConfigValue: any = Object.values(
+        res.uiResources?.resources?.views
+      )[1];
+      const fieldsConfigData = viewConfigValue[0]?.children[0]?.children;
+
+      mergeArrayAndObjectConfig(fieldsConfigData, fieldsData);
 
       const filteredcontent = Object.keys(content).reduce((acc, key) => {
         if (
@@ -114,17 +124,18 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
         return obj;
       }, {});
 
-    return Object.keys(filteredFields).map((key) => {
+    return Object.keys(filteredFields)?.map((key) => {
       const fieldConfig = filteredFields[key][0];
       return {
-        type: fieldConfig.displayAs.replace(/^px/, "") as Field["type"],
-        maxLength: fieldConfig.maxLength || null,
-        readOnly: fieldConfig.readOnly || null,
+        type: fieldConfig?.displayAs?.replace(/^px/, "") as Field["type"],
+        maxLength: fieldConfig?.maxLength || null,
+        readOnly: fieldConfig?.readOnly || null,
+        required: fieldConfig?.required || null,
         config: {
-          label: `@L ${fieldConfig.label}`,
+          label: `@L ${fieldConfig?.label}`,
           value: `@P .${key}`,
-          ...(fieldConfig.datasource && {
-            datasource: fieldConfig.datasource,
+          ...(fieldConfig?.datasource && {
+            datasource: fieldConfig?.datasource,
           }),
         },
       };
@@ -150,10 +161,10 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
   };
 
   function convertLabel(label: string): string {
-    let cleanedLabel = label.replace("@L ", "");
-
+    let cleanedLabel = label.includes("@L @L")
+      ? label.replace("@L @L", "")
+      : label.replace("@L ", "");
     cleanedLabel = cleanedLabel.replace(/([a-z])([A-Z])/g, "$1 $2");
-
     return cleanedLabel;
   }
 
@@ -187,10 +198,11 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
   }
 
   const generateField = (field: Field, filledContent?: any) => {
-    const { label, datasource, maxLength, readOnly } = field.config;
+    const { label, datasource } = field.config;
+    const { maxLength, readOnly, required } = field;
     const formattedKey = convertLabel(label)
       .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      ?.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join("");
 
     const currentValue =
@@ -206,9 +218,11 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
               type={convertLabel(label) === "Email" ? "email" : "text"}
               id={label}
               name={label}
+              required={required}
               value={currentValue}
               onChange={handleChange}
               placeholder={convertLabel(label)}
+              readOnly={readOnly}
             />
           </div>
         );
@@ -222,9 +236,11 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
               name={label}
               value={formData[label] || ""}
               onChange={handleChange}
+              disabled={readOnly}
+              required={required}
             >
               <option value="">Select...</option>
-              {datasource?.records.map((option: any) => (
+              {datasource?.records?.map((option: any) => (
                 <option key={option.key} value={option.value}>
                   {option.value}
                 </option>
@@ -247,6 +263,8 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
                     value={option.value}
                     onChange={handleChange}
                     checked={formData[label] === option.value}
+                    readOnly={readOnly}
+                    required={required}
                   />
                   <label htmlFor={`${label}-${option.key}`}>
                     {option.value}
@@ -264,11 +282,13 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
             <input
               type="email"
               id={label}
+              readOnly={readOnly}
               maxLength={maxLength}
               name={label}
               value={formData[label] || ""}
               onChange={handleChange}
               placeholder={convertLabel(label)}
+              required={required}
             />
           </div>
         );
@@ -280,14 +300,28 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
             <input
               type="number"
               id={label}
+              readOnly={readOnly}
               name={label}
               value={formData[label] || ""}
               onChange={handleChange}
+              placeholder={convertLabel(label)}
+              required={required}
             />
           </div>
         );
 
       case "DateTime":
+        let cleanedLabel = label.replace("@L ", "");
+
+        cleanedLabel = cleanedLabel.includes(" ")
+          ? cleanedLabel
+              .toLowerCase()
+              .replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, (match, index) =>
+                index === 0 ? match.toUpperCase() : match.toUpperCase()
+              )
+              .replace(/\s+/g, "")
+          : cleanedLabel.replace(/\s+/g, "");
+
         return (
           <div key={label}>
             <label htmlFor={label}>{convertLabel(label)}</label>
@@ -295,13 +329,14 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
               type="date"
               id={label}
               name={label}
+              required={required}
               value={
-                formData[label]
-                  ? new Date(formData[label]).toISOString().split("T")[0]
+                currentValue
+                  ? new Date(currentValue).toISOString().split("T")[0]
                   : ""
               }
               onChange={handleChange}
-              readOnly={readOnly || false}
+              readOnly={readOnly}
             />
           </div>
         );
@@ -316,6 +351,29 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
     setActions(action);
     setEtag(etag);
     setFormData({});
+  }
+
+  function mergeArrayAndObjectConfig(array: any[], object: any) {
+    array.forEach((item) => {
+      let labelWithoutPrefix = item.config.label.replace("@L ", "");
+
+      if (labelWithoutPrefix.includes(" ")) {
+        labelWithoutPrefix = labelWithoutPrefix
+          .split(" ")
+          .map((word: any) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join("");
+      }
+
+      if (object[labelWithoutPrefix] && object[labelWithoutPrefix].length > 0) {
+        const { label, datasource, ...configWithoutLabel } = item.config;
+        object[labelWithoutPrefix][0] = {
+          ...object[labelWithoutPrefix][0],
+          ...configWithoutLabel,
+        };
+      }
+    });
+
+    return object;
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -344,6 +402,13 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
           const nextAction = res.data.caseInfo.assignments[0].actions[0];
           const content = res?.data?.caseInfo?.content;
 
+          const nextViewConfigValue: any = Object.values(
+            res.uiResources?.resources?.views
+          )[1];
+
+          const nextFieldsConfigData =
+            nextViewConfigValue[0]?.children[0]?.children;
+
           const filteredcontent = Object.keys(content).reduce((acc, key) => {
             if (
               !key.startsWith("px") &&
@@ -354,6 +419,24 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
             }
             return acc;
           }, {} as { [key: string]: string });
+
+          const filteredNextFieldConfigData = nextFieldsConfigData.filter(
+            (field: any) => {
+              return field.type !== "Group";
+            }
+          );
+
+          const groupedFilteredNextConfigData = nextFieldsConfigData.filter(
+            (field: any) => {
+              return field.type === "Group";
+            }
+          );
+
+          mergeArrayAndObjectConfig(filteredNextFieldConfigData, nextFields);
+
+          groupedFilteredNextConfigData?.forEach((configData: any) => {
+            mergeArrayAndObjectConfig(configData.children, nextFields);
+          });
 
           setFilteredContent(filteredcontent);
           routeNextStep(res.etag, nextFields, nextAction);
@@ -384,7 +467,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
         <>
           <div className={styles.stepProgressBar}>
             {!formSubmitted &&
-              stepLabels.map((label, index) => (
+              stepLabels?.map((label, index) => (
                 <div
                   key={index}
                   className={`${styles.stepWrapper} ${
