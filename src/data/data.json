@@ -1,0 +1,29 @@
+{
+    "routes":[
+        {
+            "path": "/",
+            "component": "Home",
+            "location": "./routes/home/Home"
+          },
+          {
+            "path": "/services",
+            "component": "Services",
+            "location": "./routes/services/Services"
+          },
+          {
+            "path": "/about-us",
+            "component": "AboutUs",
+            "location": "./routes/about-us/AboutUs"
+          },
+          {
+            "path": "/contact-us",
+            "component": "ContactUs",
+            "location": "./routes/contact-us/ContactUs"
+          },
+          {
+            "path": "/appointment",
+            "component": "Appointment",
+            "location": "./components/Appointment/Appoinment"
+          }
+    ]
+}

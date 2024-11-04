@@ -7,10 +7,10 @@ import Header from "./components/header/Header";
 import Footer from "./components/Footer/Footer";
 import { getToken } from "./auth/oauth.ts";
 import { Suspense, lazy, useEffect } from "react";
-import routesData from './data/routesData.json';
-
+import data from "./data/data.json"
 
 const loadComponent = (location:any) => lazy(() => import(`${location}`));
+const routesData = data.routes;
 const preloadComponents = () => {
   routesData.forEach(route => {
     import(`${route.location}`);
