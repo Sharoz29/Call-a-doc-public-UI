@@ -14,6 +14,7 @@ const ContactUs = () => {
   const [message, setMessage] = useState("");
   const [address, setAddress] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [messageResponse,setMessageResponse]=useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +40,7 @@ const ContactUs = () => {
         res.etag
       );
       if (assignmentResponse) {
+        setMessageResponse(assignmentResponse.confirmationNote)
         toast.success("Your message has been successfully sent!", {
           autoClose: 5000,
         });
@@ -57,7 +59,7 @@ const ContactUs = () => {
           <div className={styles.content}>
             {isSubmitted ? (
               <div>
-                <ThankYou />
+                <ThankYou message={messageResponse} />
               </div>
             ) : (
               <div className="">
