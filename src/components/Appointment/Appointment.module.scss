@@ -44,10 +44,17 @@ display: none;
   }
 .content{
   width: 78%;
+  display: flex;
+    flex-direction: column;
+    h3{
+      text-align: center;
+    }
+
 }
 
 .AppointmentContent{
-  width: 80%;
+  display: flex;
+  width: 100%;
     padding: 9px 0px 0px 0px;
     text-align: justify;
     gap: 20px;
@@ -76,7 +83,7 @@ a {
 .appointmentBtn {
   background: linear-gradient(90deg, rgba(36, 126, 192, 1),rgba(72, 213, 196, 1));
   color: white;
-  padding: 10px 20px;
+  padding: 16px 20px;
   border-radius: 20px;
   font-weight: bold;
   transition: background-color 0.3s;

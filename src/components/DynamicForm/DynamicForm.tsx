@@ -67,6 +67,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [message,setMessage]=useState("")
   const stepLabels = [
     "Start",
     "Patient Info",
@@ -390,11 +391,12 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
         if (!res.hasOwnProperty("nextAssignmentInfo")) {
           setFormSubmitted(true);
           toast.success(
-            res.data.confirmationNote || "Form submitted successfully!",
+            "Form submitted successfully!",
             {
               autoClose: 5000,
             }
           );
+          setMessage(res.confirmationNote);
         } else {
           const nextFields = res.uiResources.resources.fields;
           const nextAction = res.data.caseInfo.assignments[0].actions[0];
@@ -500,7 +502,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
 
           {formSubmitted && (
             <div>
-              <ThankYou />
+              <ThankYou message={message} />
             </div>
           )}
           {!formSubmitted &&

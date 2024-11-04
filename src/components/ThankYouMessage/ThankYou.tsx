@@ -2,8 +2,13 @@ import React from "react";
 import styles from "./ThankYou.module.scss";
 import { useNavigate } from "react-router-dom";
 
-const ThankYou: React.FC = () => {
+interface ThankYouProps {
+  message?: string; 
+}
+
+const ThankYou: React.FC<ThankYouProps> = ({ message = "Thank You for Reaching Out!" }) => {
   const navigate = useNavigate();
+  
   const handleGoBack = () => {
     navigate("/");
   };
@@ -25,7 +30,7 @@ const ThankYou: React.FC = () => {
         </svg>
       </div>
       <div className={styles.animatedMessage}>
-        <h2 className={styles.thankYouText}>Thank You for Reaching Out!</h2>
+        <h2 className={styles.thankYouText}>{message}</h2>
         <p className={styles.subText}>We’ll get back to you shortly.</p>
         <div className={styles.underline}></div>
       </div>
