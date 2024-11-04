@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { caseService } from "../../services/case.service";
 import ClipLoader from "react-spinners/ClipLoader";
 import ThankYou from "../ThankYouMessage/ThankYou";
+import data from '../../data/data.json'
 interface FieldData {
   value: string;
   label: string;
@@ -68,12 +69,9 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [message,setMessage]=useState("")
-  const stepLabels = [
-    "Start",
-    "Patient Info",
-    "Insurance Info",
-    "Appointment Booking",
-  ];
+
+  const {appointmentData}=data.components;
+  const stepLabels=appointmentData.stepLabels;
 
   useEffect(() => {
     setLoading(true);

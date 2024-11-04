@@ -3,9 +3,10 @@ import appointment from "../../assets/appointment.png";
 import { useState } from "react";
 import DynamicForm from "../DynamicForm/DynamicForm";
 import { caseTypeIds } from "../../auth/global";
-
+import data from '../../data/data.json'
 const Appointment = () => {
   const [showForm, setShowForm] = useState<boolean>(false);
+  const {appointmentData}= data.components;
 
   function openForm(e: React.MouseEvent<HTMLButtonElement | MouseEvent>) {
     e.preventDefault();
@@ -16,31 +17,13 @@ const Appointment = () => {
     <section className={styles.appointmentMain}>
       <div className={styles.appointmentSection}>
         <div className={styles.content}>
-          <h3>Book an Appointment</h3>
+          <h3>{appointmentData.Header}</h3>
           <div className={styles.AppointmentContent}>
             <div>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
+          {appointmentData.para1}
             </div>
             <div>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
+          {appointmentData.para2}
             </div>
           </div>
           <div className={styles.appointmentBtnDiv}>
@@ -49,7 +32,7 @@ const Appointment = () => {
               className={styles.appointmentBtn}
               onClick={(e) => openForm(e)}
             >
-              Book an Appointment
+              {appointmentData.Header}
             </button>
           </div>
 
