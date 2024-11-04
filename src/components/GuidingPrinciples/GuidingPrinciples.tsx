@@ -1,38 +1,40 @@
 
 import styles from './GuidingPrinciples.module.scss'
-import leftDoctorImage from '../../../src/assets/leftDoctorImage.png'; 
-import rightDoctorImage from '../../../src/assets/rightDoctorImage.png'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandsHelping, faShieldAlt, faStar } from '@fortawesome/free-solid-svg-icons';
+import data from '../../data/data.json'
+
+type Principle = {
+  icon: any;
+  title: string;
+  description: string;
+};
+
+const iconMapping: { [key in Principle['icon']]: any } = {
+  faHandsHelping,
+  faShieldAlt,
+  faStar
+};
 
 const GuidingPrinciples = () => {
+  const {guidingPrinciples}=data.components;
   return (
     <section className={styles.guidingPrinciples}>
       <div className={styles.doctorImages}>
-        <img src={leftDoctorImage} alt="Medical Team" className={styles.leftDoctor} />
-        <h2>Guiding Principles</h2>
-        <img src={rightDoctorImage} alt="Medical Professional" className={styles.rightDoctor} />
+      <img src={guidingPrinciples.images.left} alt="Medical Team" className={styles.leftDoctor} />
+        <h2>{guidingPrinciples.title}</h2>
+        <img src={guidingPrinciples.images.right} alt="Medical Professional" className={styles.rightDoctor} />
       </div>
       <div className={styles.principlesContainer}>
         <div className={styles.principles}>
      
-          <div className={styles.principleCard}>
-            <FontAwesomeIcon icon={faHandsHelping} className={styles.icon} />
-            <h3>Compassion</h3>
-            <p>We approach every client with empathy, kindness, and a genuine desire to improve their quality of life.</p>
-          </div>
-     
-          <div className={styles.principleCard}>
-            <FontAwesomeIcon icon={faShieldAlt} className={styles.icon} />
-            <h3>Integrity</h3>
-            <p>We are committed to honesty, transparency, and upholding the highest ethical standards in all that we do.</p>
-          </div>
-        
-          <div className={styles.principleCard}>
-            <FontAwesomeIcon icon={faStar} className={styles.icon} />
-            <h3>Excellence</h3>
-            <p>We strive for excellence in every aspect of our services, continuously improving to provide the best possible care.</p>
-          </div>
+        {guidingPrinciples.principles.map((principle, index) => (
+            <div key={index} className={styles.principleCard}>
+              <FontAwesomeIcon icon={iconMapping[principle.icon]}className={styles.icon} />
+              <h3>{principle.title}</h3>
+              <p>{principle.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

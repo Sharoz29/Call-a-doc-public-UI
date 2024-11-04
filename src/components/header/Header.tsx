@@ -9,9 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { useLocation } from "react-router-dom";
+import data from '../../data/data.json'
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const {header}=data.components
 
   useEffect(() => {
     const navLinks = document.querySelectorAll(`.${styles.links} a`);
@@ -38,15 +40,15 @@ const Header = () => {
         <div className={styles.topbar}>
           <div className={styles.topbarLeft}>
             <span>
-              <FontAwesomeIcon icon={faMapMarkerAlt} /> Lorem Ipsum Dolor
+            <FontAwesomeIcon icon={faMapMarkerAlt} /> {header.topbar.locationText}
             </span>
             <span>
-              <FontAwesomeIcon icon={faEnvelope} /> Lorem Lorem dolor dolor
+            <FontAwesomeIcon icon={faEnvelope} /> {header.topbar.emailText}   
             </span>
           </div>
           <div className={styles.topbarRight}>
             <a href="#">
-              <FontAwesomeIcon icon={faWhatsapp} /> Connect on Whatsapp
+            <FontAwesomeIcon icon={faWhatsapp} /> {header.topbar.whatsappText}
             </a>
           </div>
         </div>
@@ -55,22 +57,22 @@ const Header = () => {
     </header>
       <nav className={styles.navbar}>
         <div className={styles.logo}>
-          <a href="/">Call a Doctor</a>
+        <a href="/">{header.navbar.logoText}</a>
         </div>
         <div className={`${styles.links} ${menuOpen ? styles.showMenu : ""}`}>
-          <a href="/">Home</a>
-          <a href="/about-us">About</a>
-          <a href="/services">Services</a>
-          <a href="/contact-us">Contact</a>
-          <a href="/appointment">Appointment</a>
+        {header.links.map((link, index) => (
+            <a key={index} href={link.path}>
+              {link.name}
+            </a>
+          ))}
         </div>
         <div className={styles.contact}>
-          <a className="phone" href="tel:0000-000-000">
-            <FontAwesomeIcon icon={faPhone} /> <span> 0000-000-000 </span>
+          <a className="phone" href={`tel:${header.navbar.phone}`}>
+          <FontAwesomeIcon icon={faPhone} /> <span>{header.navbar.phone}</span>
           </a>
         </div>
         <button className={styles.hamburger} onClick={toggleMenu}>
-          <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} />
+        <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} />
         </button>
       </nav>
     </>

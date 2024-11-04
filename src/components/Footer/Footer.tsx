@@ -10,57 +10,57 @@ import {
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
+import  data from '../../data/data.json'
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+const iconMap: Record<string, IconProp> = {
+  faFacebookF,
+  faTwitter,
+  faYoutube,
+  faLinkedinIn,
+  faInstagram,
+  faPinterest,
+  faTiktok
+};
 const Footer = () => {
+  const {footer}=data.components
   return (
     <>
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
           <div className={styles.company}>
-            <h3>Call a Doctor</h3>
+         <h3>{footer.companyName}</h3>
             <ul>
-              <li>
-                <a href="/">Home</a>
-              </li>
-              <li>
-                <a href="/services">Services</a>
-              </li>
-              <li>
-                <a href="/about-us">About Us</a>
-              </li>
-              <li>
-                <a href="/why-choose-us">Why Choose Us</a>
-              </li>
-              <li>
-                <a href="/contact-us">Contact Us</a>
-              </li>
+            {footer.companyLinks.map((link, index) => (
+                <li key={index}>
+                  <a href={link.path}>{link.name}</a>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div className={styles.address}>
-            <h3>Address</h3>
-            <p>
-              Lorem ipsum dolor sit amet,
-              <br /> consectetur adipiscing elit.
-            </p>
+          <h3>{footer.address.heading}</h3>
+          {footer.address.lines.map((line, index) => (
+              <p key={index}>{line}<br /></p>
+            ))}
             <a
-              href="https://maps.google.com"
+              href={footer.address.mapLink} 
               target="_blank"
               rel="noopener noreferrer"
             >
-              View on Maps
+              {footer.address.mapLinkText}
             </a>
-            <h4>Inquiries</h4>
+            <h4>{footer.address.inquiriesHeading}</h4>
             <p>
-              (000) 000-000
-              <br /> info@calladoctor.com
+            {footer.address.inquiries.phone}
+              <br /> {footer.address.inquiries.email}
             </p>
           </div>
 
           <div>
             <div className={styles.newsletter}>
-              <h3>Newsletter</h3>
-              <p>Stay Updated with our Latest News</p>
+            <h3>{footer.newsletter.title}</h3>
+            <p>{footer.newsletter.description}</p>
               <div className={styles.newsletterInput}>
                 <input type="email" placeholder="Your Email" />
                 <button>
@@ -70,29 +70,13 @@ const Footer = () => {
             </div>
 
             <div className={styles.social}>
-              <h3>Follow Us</h3>
+            <h3>{footer.social.heading}</h3>
               <div className={styles.socialIcons}>
-                <a href="#">
-                  <FontAwesomeIcon icon={faFacebookF} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faTwitter} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faYoutube} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faLinkedinIn} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faInstagram} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faPinterest} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faTiktok} />
-                </a>
+              {footer.social.socialLinks.map((social, index) => (
+                  <a key={index} href={social.link}>
+                    <FontAwesomeIcon icon={iconMap[social.icon]} />
+                  </a>
+                ))}
               </div>
             </div>
           </div>

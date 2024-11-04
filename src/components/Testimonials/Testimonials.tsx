@@ -3,21 +3,10 @@ import styles from './Testimonials.module.scss';
 import Slider, { Settings } from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import healthcareProfessional from '../../../src/assets/healthcareProfessional.png';
-import profilepic1 from '../../../src/assets/profilePic1.png';
-import profilepic2 from '../../../src/assets/profilePic2.jpeg';
-import profilepic3 from '../../../src/assets/profilePic3.jpeg';
-import profilepic4 from '../../../src/assets/profilePic4.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useRef } from 'react';
-
-type Testimonial = {
-  name: string;
-  image: string;
-  review: string;
-  rating: number;
-};
+import data from '../../data/data.json'
 
 interface ArrowProps {
   className?: string;
@@ -27,44 +16,7 @@ interface ArrowProps {
 
 const Testimonials: React.FC = () => {
   const sliderRef = useRef<Slider>(null);
-  const testimonials: Testimonial[] = [
-    {
-      name: 'Thomas Daniel',
-      image: profilepic1,
-      review: "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
-      rating: 5,
-    },
-    {
-      name: 'Alena Alex',
-      image: profilepic2,
-      review: "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
-      rating: 5,
-    },
-    {
-      name: 'Thomas Edison',
-      image: profilepic3,
-      review: "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
-      rating: 5,
-    },
-    {
-      name: 'John Smith',
-      image: profilepic4,
-      review: 'The caregivers from Home Health Services have been absolutely wonderful. They ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
-      rating: 5,
-    },
-    {
-      name: 'Mary Jones',
-      image: profilepic3,
-      review: 'The caregivers from Home Health Services have been absolutely wonderful. They ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.',
-      rating: 5,
-    },
-    {
-      name: 'John Smith',
-      image: profilepic4,
-      review: 'The caregivers from Home Health Services have been absolutely wonderful. They ve provided my father with compassionate, personalized care that has allowed him to remain independent in his own home..',
-      rating: 5,
-    },
-  ];
+  const {testimonials}=data.components;
 
   const settings: Settings = {
     arrows:false,
@@ -96,11 +48,11 @@ const Testimonials: React.FC = () => {
     <section className={styles.testimonialsSection}>
       <div className={styles.headerContainer}>
         <div className={styles.mainImage}>
-          <img src={healthcareProfessional} alt="Healthcare Professional" />
+        <img src={testimonials.mainImage} alt="Healthcare Professional" />
         </div>
         <div className={styles.textContainer}>
-          <h3 className={styles.subheading}>Testimonials</h3>
-          <h2 className={styles.heading}>What Our Clients Say</h2>
+        <h3 className={styles.subheading}>{testimonials.subHeading}</h3>
+        <h2 className={styles.heading}>{testimonials.heading}</h2>
         </div>
       </div>
 
@@ -108,7 +60,7 @@ const Testimonials: React.FC = () => {
         className={styles.testimonialsContainer}
       > 
         <Slider  ref={sliderRef}  {...settings}>
-          {testimonials.map((testimonial, index) => (
+          {testimonials.testimonials.map((testimonial, index) => (
             <div className={styles.testimonialCard} key={index}>
               <div className={styles.imageContainer}   >
                 <img src={testimonial.image} alt={testimonial.name}  />

@@ -1,33 +1,31 @@
 
 import styles from './HomeCareSection.module.scss';
-import HomeHealthCare from '../../../src/assets/HomeHealthCare.png';
+import data from '../../data/data.json'
 
 const HomeCareSection = () => {
+  const homeCareData=data.components.HomeCareData;
   return (
     <section className={styles.homeCareMain}>
 
     <div className={styles.homeCareSection}>
-      <div className={styles.content}>
-        <h1>
-          Compassionate <span>Home Health Care</span>
-        </h1>
-        <p>
-          Providing personalized, high-quality home health services to help you
-          or your loved ones live independently and with dignity.
-        </p>
+    <div className={styles.content}>
+          <h1>
+            {homeCareData.title.split(' ')[0]} <span>{homeCareData.titleHighlight}</span>
+          </h1>
+          <p>{homeCareData.description}</p>
 
-        <div className={styles.emailInput}>
-          <input type="email" placeholder="Enter Your Email" />
-          <button>Lets Talk</button>
+          <div className={styles.emailInput}>
+            <input type="email" placeholder={homeCareData.emailPlaceholder} />
+            <button>{homeCareData.buttonText}</button>
+          </div>
         </div>
-      </div>
 
       <div className={styles.visuals}>
         <div className={styles.imageWrapper}>
-          <img
-            src={HomeHealthCare}
-            alt="Nurse helping elderly"
-            className={styles.mainImage}
+        <img  
+              src={homeCareData.imageSrc}
+              alt={homeCareData.imageAlt}
+              className={styles.mainImage}
             />
 
         </div>

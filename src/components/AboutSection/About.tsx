@@ -1,35 +1,28 @@
-
 import styles from './About.module.scss';
-import image1 from '../../../src/assets/image1.jpg'; 
-
+import image1 from '../../../src/assets/image1.jpg';
+import data from '../../data/data.json'
 
 const AboutSection = () => {
+  const {aboutUs}=data.components;
   return (
     <>
       <section className={styles.aboutSection}>
         <div className={styles.imageContainer}>
           <img src={image1} alt="Nurse helping elderly" className={styles.mainImage} />
           <div className={styles.checkupTag}>
-            <p>Regular Checkup</p>
-          </div>
-          <div className={styles.badge}>
-            <p><strong>98k+</strong> Happy Patients</p>
-          </div>
+          <p>{aboutUs.stats.tagline}</p>
         </div>
+        <div className={styles.badge}>
+          <p><strong>{aboutUs.stats.patientsCount}</strong></p>
+        </div>
+      </div>
 
-        <div className={styles.textContainer}>
-          <h2>About Us</h2>
-          <h3>Dedicated to Improving Lives</h3>
-          <p>
-            At Home Health Services, our mission is to provide compassionate, personalized care that empowers
-            our clients to live independently and with dignity. We believe in treating each individual with the utmost
-            respect and care, tailoring our services to meet their unique needs and preferences.
-          </p>
-          <h4>Our Mission</h4>
-          <p>
-            Our goal is to create a nurturing and supportive environment where our clients can flourish and experience
-            the highest possible quality of life.
-          </p>
+      <div className={styles.textContainer}>
+        <h2>{aboutUs.title}</h2>
+        <h3>{aboutUs.subtitle}</h3>
+        <p>{aboutUs.mainText}</p>
+        <h4>{aboutUs.missionTitle}</h4>
+        <p>{aboutUs.missionText}</p>
           <a href='/about-us' className={styles.learnMoreButton}>Learn More &rarr;</a>
         </div>
       </section>

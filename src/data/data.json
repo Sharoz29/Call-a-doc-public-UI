@@ -25,5 +25,224 @@
             "component": "Appointment",
             "location": "./components/Appointment/Appoinment"
           }
-    ]
+    ],
+    "pages":{
+        "aboutUs":{},
+        "contactUs":{},
+        "home":{},
+        "services":{}
+    },
+    "components":{
+      "guidingPrinciples":{
+        "title": "Guiding Principles",
+        "images": {
+          "left": "../../../src/assets/leftDoctorImage.png",
+          "right": "../../../src/assets/rightDoctorImage.png"
+        },
+        "principles": [
+          {
+            "icon": "faHandsHelping",
+            "title": "Compassion",
+            "description": "We approach every client with empathy, kindness, and a genuine desire to improve their quality of life."
+          },
+          {
+            "icon": "faShieldAlt",
+            "title": "Integrity",
+            "description": "We are committed to honesty, transparency, and upholding the highest ethical standards in all that we do."
+          },
+          {
+            "icon": "faStar",
+            "title": "Excellence",
+            "description": "We strive for excellence in every aspect of our services, continuously improving to provide the best possible care."
+          }
+        ]
+      },
+      "HomeCareData":
+      {
+        "title": "Compassionate Home Health Care",
+        "titleHighlight": "Home Health Care",
+        "description": "Providing personalized, high-quality home health services to help you or your loved ones live independently and with dignity.",
+        "emailPlaceholder": "Enter Your Email",
+        "buttonText": "Let's Talk",
+        "imageAlt": "Nurse helping elderly",
+        "imageSrc": "../../../src/assets/HomeHealthCare.png"
+      },
+      "aboutUs":
+      {
+        "title": "About Us",
+        "subtitle": "Dedicated to Improving Lives",
+        "mainText": "At Home Health Services, our mission is to provide compassionate, personalized care that empowers our clients to live independently and with dignity. We believe in treating each individual with the utmost respect and care, tailoring our services to meet their unique needs and preferences.",
+        "missionTitle": "Our Mission",
+        "missionText": "Our goal is to create a nurturing and supportive environment where our clients can flourish and experience the highest possible quality of life.",
+        "buttonText": "Learn More →",
+        "stats": {
+          "tagline": "Regular Checkup",
+          "patientsCount": "98k+ Happy Patients"
+        }
+      },
+      "services":{
+        "heading": "Our Services",
+        "subHeading": "Tailored Home Health Care",
+        "buttonText":"Read More",
+        "services": [
+          {
+            "icon": "faStethoscope",
+            "title": "Nursing Care",
+            "description": "Our registered nurses provide skilled medical care, medication management, and chronic disease management.",
+            "link": "#"
+          },
+          {
+            "icon": "faUserNurse",
+            "title": "Personal Care",
+            "description": "Our compassionate caregivers assist with daily living activities such as bathing, dressing, and meal preparation.",
+            "link": "#"
+          },
+          {
+            "icon": "faHeartbeat",
+            "title": "Therapy Services",
+            "description": "Our physical, occupational, and speech therapists help clients regain independence and improve their quality of life.",
+            "link": "#"
+          },
+          {
+            "icon": "faUserMd", 
+            "title": "Skilled Nursing",
+            "description": "Our registered nurses provide comprehensive medical care, including wound care and chronic disease management.",
+            "link": "#"
+          },
+          {
+            "icon": "faHandsHelping",
+            "title": "Supportive Care",
+            "description": "Our compassionate caregivers assist with daily living activities, grooming, and meal preparation.",
+            "link": "#"
+          },
+          {
+            "icon": "faWheelchair",
+            "title": "Rehabilitation Therapy",
+            "description": "Our physical, occupational, and speech therapists help clients regain independence through personalized treatment plans.",
+            "link": "#"
+          },
+          {
+            "icon": "faWheelchair",
+            "title": "Rehabilitation Therapy",
+            "description": "Our physical, occupational, and speech therapists help clients regain independence through personalized treatment plans.",
+            "link": "#"
+          },
+          {
+            "icon": "faUserMd",
+            "title": "Skilled Nursing",
+            "description": "Our registered nurses provide comprehensive medical care, including wound care and chronic disease management.",
+            "link": "#"
+          },
+          {
+            "icon": "faHandsHelping",
+            "title": "Supportive Care",
+            "description": "Our compassionate caregivers assist with daily living activities, grooming, and meal preparation.",
+            "link": "#"
+          }
+        
+        ]
+      },
+      "testimonials":{
+        "heading": "What Our Clients Say",
+        "subHeading": "Testimonials",
+        "mainImage": "../../../src/assets/healthcareProfessional.png",
+        "testimonials": [
+          {
+            "name": "Thomas Daniel",
+            "image": "../../../src/assets/profilePic1.png",
+            "review": "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
+            "rating": 5
+          },
+          {
+            "name": "Alena Alex",
+            "image": "../../../src/assets/profilePic2.jpeg",
+            "review": "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
+            "rating": 5
+          },
+          {
+            "name": "Thomas Edison",
+            "image": "../../../src/assets/profilePic3.jpeg",
+            "review": "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
+            "rating": 5
+          },
+          {
+            "name": "John Smith",
+            "image": "../../../src/assets/profilePic4.jpeg",
+            "review": "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
+            "rating": 5
+          },
+          {
+            "name": "Mary Jones",
+            "image": "../../../src/assets/profilePic3.jpeg",
+            "review": "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
+            "rating": 5
+          },
+          {
+            "name": "John Smith",
+            "image": "../../../src/assets/profilePic4.jpeg",
+            "review": "The caregivers from Home Health Services have been absolutely wonderful. They've provided my father with compassionate, personalized care that has allowed him to remain independent in his own home.",
+            "rating": 5
+          }
+        ]
+      },
+      "header":{
+        "topbar": {
+          "locationText": "Lorem Ipsum Dolor",
+          "emailText": "Lorem Lorem dolor dolor",
+          "whatsappText": "Connect on Whatsapp",
+          "whatsappLink": "#"
+        },
+        "navbar": {
+          "logoText": "Call a Doctor",
+          "phone": "0000-000-000"
+        },
+        "links": [
+          { "name": "Home", "path": "/" },
+          { "name": "About", "path": "/about-us" },
+          { "name": "Services", "path": "/services" },
+          { "name": "Contact", "path": "/contact-us" },
+          { "name": "Appointment", "path": "/appointment" }
+        ]
+      },
+      "footer":{
+        "companyName": "Call a Doctor",
+        "companyLinks": [
+          { "name": "Home", "path": "/" },
+          { "name": "Services", "path": "/services" },
+          { "name": "About Us", "path": "/about-us" },
+          { "name": "Contact Us", "path": "/contact-us" }
+        ],
+        "address": {
+          "heading": "Address",
+          "lines": [
+            "Lorem ipsum dolor sit amet,",
+            "consectetur adipiscing elit."
+          ],
+          "mapLinkText": "View on Maps",
+          "mapLink": "https://maps.google.com",
+          "inquiriesHeading": "Inquiries",
+          "inquiries": {
+            "phone": "(000) 000-000",
+            "email": "info@calladoctor.com"
+          }
+        },
+        "newsletter": {
+          "title": "Newsletter",
+          "description": "Stay Updated with our Latest News",
+          "placeholder": "Your Email"
+        },
+        "social": {
+          "heading": "Follow Us",
+          "socialLinks": [
+            { "icon": "faFacebookF", "link": "#" },
+            { "icon": "faTwitter", "link": "#" },
+            { "icon": "faYoutube", "link": "#" },
+            { "icon": "faLinkedinIn", "link": "#" },
+            { "icon": "faInstagram", "link": "#" },
+            { "icon": "faPinterest", "link": "#" },
+            { "icon": "faTiktok", "link": "#" }
+          ]
+        }
+      }
+    }
 }
