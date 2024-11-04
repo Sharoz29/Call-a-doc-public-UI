@@ -29,9 +29,16 @@ async function getCaseById(id: any) {
     return await Promise.reject(error);
   }
 }
+
+const ongoingRequests = new Map();
+
 async function getCaseView(caseTypeID: any) {
-  try {
-    const response = await axios.post(
+  if (ongoingRequests.has(caseTypeID)) {
+    return ongoingRequests.get(caseTypeID);
+  }
+
+  const requestPromise = axios
+    .post(
       endpoints.PEGAAPIURL + endpoints.CASES + `?viewType=page`,
       {
         caseTypeID: caseTypeID,
@@ -44,16 +51,25 @@ async function getCaseView(caseTypeID: any) {
           "Content-Type": "application/json",
         },
       }
-    );
-    return {
-      ...response.data,
-      etag: response.headers["etag"],
-      actions: response?.data?.data?.caseInfo?.assignments[0]?.actions,
-      navigationSteps: response?.data.uiResources.navigation.steps,
-    };
-  } catch (error) {
-    return await Promise.reject(error);
-  }
+    )
+    .then((response) => {
+      ongoingRequests.delete(caseTypeID);
+
+      return {
+        ...response.data,
+        etag: response.headers["etag"],
+        actions: response?.data?.data?.caseInfo?.assignments[0]?.actions,
+        navigationSteps: response?.data.uiResources.navigation.steps,
+      };
+    })
+    .catch((error) => {
+      ongoingRequests.delete(caseTypeID);
+      return Promise.reject(error);
+    });
+
+  ongoingRequests.set(caseTypeID, requestPromise);
+
+  return requestPromise;
 }
 
 async function getCaseActions(caseId: any, actionId: any) {

@@ -74,8 +74,6 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
     "Appointment Booking",
   ];
 
-  const token = sessionStorage.getItem("token");
-
   useEffect(() => {
     setLoading(true);
     caseService.getCaseView(caseTypeId).then((res) => {
@@ -110,7 +108,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
       setActions(actions);
       setLoading(false);
     });
-  }, [token, caseTypeId]);
+  }, [caseTypeId]);
 
   const processFields = (
     fields: Fields | undefined
