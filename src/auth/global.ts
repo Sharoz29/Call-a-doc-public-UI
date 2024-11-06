@@ -2,7 +2,7 @@ export const endpoints = {
   PEGAURL: `https://web.pega23.lowcodesol.co.uk`,
   PEGAAPIURL: `https://web.pega23.lowcodesol.co.uk/prweb/app/call-a-doctor/api/application/v2`,
   client_id: "14965090564081136535",
-  client_secret: "963098033BD1F8CCE866D850AE8F7D0B",
+  client_secret: "A6292B0D9EC5C2F6F0D0488012F718E1",
   grant_type: "client_credentials",
 
   CASETYPES: "/casetypes",
