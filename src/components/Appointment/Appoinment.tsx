@@ -3,10 +3,10 @@ import appointment from "../../assets/appointment.png";
 import { useState } from "react";
 import DynamicForm from "../DynamicForm/DynamicForm";
 import { caseTypeIds } from "../../auth/global";
-import data from '../../data/data.json'
+import data from "../../data/data.json";
 const Appointment = () => {
   const [showForm, setShowForm] = useState<boolean>(false);
-  const {appointmentData}= data.components;
+  const { appointmentData } = data.components;
 
   function openForm(e: React.MouseEvent<HTMLButtonElement | MouseEvent>) {
     e.preventDefault();
@@ -19,12 +19,8 @@ const Appointment = () => {
         <div className={styles.content}>
           <h3>{appointmentData.Header}</h3>
           <div className={styles.AppointmentContent}>
-            <div>
-          {appointmentData.para1}
-            </div>
-            <div>
-          {appointmentData.para2}
-            </div>
+            <div>{appointmentData.para1}</div>
+            <div>{appointmentData.para2}</div>
           </div>
           <div className={styles.appointmentBtnDiv}>
             <button

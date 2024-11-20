@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { caseService } from "../../services/case.service";
 import ClipLoader from "react-spinners/ClipLoader";
 import ThankYou from "../ThankYouMessage/ThankYou";
-import data from '../../data/data.json'
+import data from "../../data/data.json";
 interface FieldData {
   value: string;
   label: string;
@@ -68,10 +68,10 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [message,setMessage]=useState("")
+  const [message, setMessage] = useState("");
 
-  const {appointmentData}=data.components;
-  const stepLabels=appointmentData.stepLabels;
+  const { appointmentData } = data.components;
+  const stepLabels = appointmentData.stepLabels;
 
   useEffect(() => {
     setLoading(true);
@@ -220,6 +220,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
               onChange={handleChange}
               placeholder={convertLabel(label)}
               readOnly={readOnly}
+              disabled={readOnly}
             />
           </div>
         );
@@ -262,6 +263,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
                     checked={formData[label] === option.value}
                     readOnly={readOnly}
                     required={required}
+                    disabled={readOnly}
                   />
                   <label htmlFor={`${label}-${option.key}`}>
                     {option.value}
@@ -286,6 +288,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
               onChange={handleChange}
               placeholder={convertLabel(label)}
               required={required}
+              disabled={readOnly}
             />
           </div>
         );
@@ -326,6 +329,7 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
               type="date"
               id={label}
               name={label}
+              disabled={readOnly}
               required={required}
               value={
                 currentValue
@@ -388,12 +392,9 @@ const DynamicForm = ({ caseTypeId }: DynamicFormProps) => {
         count++;
         if (!res.hasOwnProperty("nextAssignmentInfo")) {
           setFormSubmitted(true);
-          toast.success(
-            "Form submitted successfully!",
-            {
-              autoClose: 5000,
-            }
-          );
+          toast.success("Form submitted successfully!", {
+            autoClose: 5000,
+          });
           setMessage(res.confirmationNote);
         } else {
           const nextFields = res.uiResources.resources.fields;
