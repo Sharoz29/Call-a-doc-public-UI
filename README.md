@@ -1,50 +1,21 @@
-# React + TypeScript + Vite
+# **React UI for PEGA Case Management for Call A Doctor**
+This React application integrates with PEGA DX API to allow users to create and manage cases dynamically. It utilizes the Silent Token Authentication method to securely obtain authentication tokens without requiring user interaction, providing a seamless experience.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## **🚀 Features**
+- **Silent Token Authentication** – Secure token retrieval without user prompts.
+- **Create & Manage Cases** – Users can create different types of cases via PEGA DX API.
+- **Dynamic Case Forms** – Auto-generated UI for different case types.
+- **Real-time Case Updates** – User interaction on forms update the cases in PEGA in real time.
+- **Optimized Performance** – Efficient API calls with caching mechanisms.
+  
+## **🛠️ Tech Stack**
+- **Frontend**: React.js (Vite)
+- **Authentication**: PEGA Silent Token Method (OAuth2 Implicit Flow)
+- **UI Library**: Tailwind CSS
+- **API**: PEGA DX API
 
-Currently, two official plugins are available:
+## **🔐 Authentication Flow**
+- On app load, it silently requests an access token using PEGA’s OAuth2 Silent Authentication.
+- If a valid token is available, the user is authenticated without needing to log in.
+- The token is used for API requests to fetch case data and perform actions.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
